@@ -16,6 +16,7 @@ import {
   ham,
   cyber,
   cyberTestnet,
+  optimismSepolia,
 } from 'viem/chains';
 import { SdkSupportedChainIds } from '../contracts';
 import { ARBITRUM_TOKENS } from './arbitrum';
@@ -76,6 +77,13 @@ export const WRAPPED_NATIVE_TOKENS: Record<SdkSupportedChainIds, WrappedToken> =
     decimals: 18,
   },
   [optimism.id]: {
+    image: 'https://mint.club/assets/tokens/eth.png',
+    tokenAddress: '0x4200000000000000000000000000000000000006',
+    nativeSymbol: 'ETH',
+    oneInchSymbol: 'USDT',
+    decimals: 18,
+  },
+  [optimismSepolia.id]: {
     image: 'https://mint.club/assets/tokens/eth.png',
     tokenAddress: '0x4200000000000000000000000000000000000006',
     nativeSymbol: 'ETH',
@@ -194,6 +202,7 @@ export const TOKENS: Record<SdkSupportedChainIds, Record<`0x${string}`, BaseToke
   // export const TOKENS = {
   [mainnet.id]: MAINNET_TOKENS,
   [optimism.id]: OPTIMISM_TOKENS,
+  [optimismSepolia.id]: OPTIMISM_TOKENS,
   [arbitrum.id]: ARBITRUM_TOKENS,
   [avalanche.id]: AVALANCHE_TOKENS,
   [polygon.id]: POLYGON_TOKENS,

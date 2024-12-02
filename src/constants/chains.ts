@@ -10,6 +10,7 @@ import {
   kaia,
   mainnet,
   optimism,
+  optimismSepolia,
   polygon,
   sepolia,
   baseSepolia,
@@ -31,6 +32,7 @@ export type ChainType = {
     | 'Cyber'
     | 'Degen'
     | 'Optimism'
+    | 'OptimismSepolia'
     | 'Arbitrum'
     | 'Avalanche'
     | 'Polygon'
@@ -85,6 +87,15 @@ export const CHAINS: Array<ChainType> = [
     color: '#FF0420',
     openseaSlug: 'optimism',
     enabled: isAddress(getMintClubContractAddress('BOND', optimism.id)),
+    chain: optimism,
+  },
+  {
+    id: optimismSepolia.id,
+    name: 'OptimismSepolia',
+    icon: 'https://mint.club/assets/networks/optimism@2x.png',
+    color: '#FF0420',
+    openseaSlug: 'optimism',
+    enabled: isAddress(getMintClubContractAddress('BOND', optimismSepolia.id)),
     chain: optimism,
   },
   {

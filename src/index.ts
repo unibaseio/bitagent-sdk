@@ -16,6 +16,7 @@ import {
   degen,
   cyber,
   cyberTestnet,
+  optimismSepolia,
 } from 'viem/chains';
 import { MintClubSDK } from './MintClubSDK';
 import {
@@ -73,6 +74,7 @@ export const supportedChainsMap: Record<LowerCaseChainNames, SdkSupportedChainId
   kaia: kaia.id,
   degen: degen.id,
   optimism: optimism.id,
+  optimismsepolia: optimismSepolia.id,
   avalanche: avalanche.id,
   base: base.id,
   blast: blast.id,
