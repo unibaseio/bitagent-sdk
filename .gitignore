@@ -171,7 +171,7 @@ out
 # IntelliJ based IDEs
 .idea
 
-dist
+# dist
 
 vocs.config.ts.timestamp-*
 vocs.config.tsx.timestamp-*
