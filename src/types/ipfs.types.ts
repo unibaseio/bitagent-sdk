@@ -11,12 +11,12 @@ export type NFTMetadata = {
 };
 
 export type MediaUploadParams = {
-  filebaseApiKey: string;
+  pinataApiKey: string;
   media: Blob;
 };
 
 export type MetadataUploadParams = {
-  filebaseApiKey: string;
+  pinataApiKey: string;
   image: IpfsHashUrl | HttpUrl;
   name: string;
   description?: string;

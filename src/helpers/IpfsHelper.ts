@@ -1,14 +1,23 @@
-import { CIDString, FilebaseClient } from '@filebase/client';
-import { FilebaseKeyNeededErrror, InvalidImageProvidedError } from '../errors/sdk.errors';
+import { PinataSDK } from 'pinata-web3';
+import { PinataKeyNeededErrror, InvalidImageProvidedError } from '../errors/sdk.errors';
 import { IpfsHashUrl, MediaUploadParams, MetadataUploadParams, NFTMetadata } from '../types/ipfs.types';
 
 export class Ipfs {
-  public async add(apiKey: string, blob: Blob): Promise<CIDString> {
-    if (!apiKey) throw new FilebaseKeyNeededErrror();
+  public async add(apiKey: string, blob: Blob): Promise<string> {
+    if (!apiKey) throw new PinataKeyNeededErrror();
 
-    const client = new FilebaseClient({ token: apiKey });
-    const cid = await client.storeBlob(blob);
-    return cid;
+    const client = new PinataSDK({ pinataJwt: apiKey, pinataGateway: '' });
+
+    switch (blob.type) {
+      case 'image/png':
+        const fileUploadResponse = await client.upload.file(new File([blob], Date.now().toString()));
+        return fileUploadResponse.IpfsHash;
+      case 'application/json':
+        const jsonUploadResponse = await client.upload.json(blob.json());
+        return jsonUploadResponse.IpfsHash;
+      default:
+        return '';
+    }
   }
 
   private isIpfsUrl(url: string) {
@@ -64,13 +73,13 @@ export class Ipfs {
   }
 
   public async upload(params: MediaUploadParams) {
-    const { filebaseApiKey, media } = params;
-    const hash = await this.add(filebaseApiKey, media);
+    const { pinataApiKey, media } = params;
+    const hash = await this.add(pinataApiKey, media);
     return `ipfs://${hash}`;
   }
 
   public async uploadMetadata(data: MetadataUploadParams): Promise<IpfsHashUrl> {
-    const { filebaseApiKey, name, image, video, description, external_url, attributes } = data;
+    const { pinataApiKey, name, image, video, description, external_url, attributes } = data;
 
     const defaultExternalLink = `https://mint.club`;
     const defaultDescription = [
@@ -96,7 +105,7 @@ export class Ipfs {
 
     const metadata = JSON.stringify(finalMetadata);
     const metadataBuffer = new Blob([metadata], { type: 'application/json' });
-    const jsonHash = await this.add(filebaseApiKey, metadataBuffer);
+    const jsonHash = await this.add(pinataApiKey, metadataBuffer);
 
     return `ipfs://${jsonHash}`;
   }

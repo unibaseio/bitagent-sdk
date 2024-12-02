@@ -17,6 +17,7 @@ import {
   cyber,
   cyberTestnet,
   ham,
+  optimismSepolia,
 } from 'viem/chains';
 import { oneInchContract } from '../contracts';
 import { SdkSupportedChainIds, toNumber } from '../exports';
@@ -34,6 +35,11 @@ export const STABLE_COINS: Record<SdkSupportedChainIds, { address: `0x${string}`
       decimals: 6n,
     }, // USDT
     [optimism.id]: {
+      address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58',
+      symbol: 'USDT',
+      decimals: 6n,
+    }, // USDT
+    [optimismSepolia.id]: {
       address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58',
       symbol: 'USDT',
       decimals: 6n,

@@ -33,9 +33,9 @@ export class InvalidImageProvidedError extends BaseError {
   }
 }
 
-export class FilebaseKeyNeededErrror extends BaseError {
+export class PinataKeyNeededErrror extends BaseError {
   constructor() {
-    super('You must provide a filebaseApiKey to upload Files to the IPFS', {
+    super('You must provide a  PinataApiKey to upload Files to the IPFS', {
       docsPath: 'docs/sdk/network/nft/create',
     });
   }
