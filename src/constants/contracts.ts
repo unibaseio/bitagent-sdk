@@ -24,7 +24,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ERC20: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0x3522D5ed493a727B5955c399743b9AE0D4eAb474',
+    [optimismSepolia.id]: '0x82E05B67B8766b78e8351717C956c151eBa5c72C',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
@@ -45,7 +45,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ERC1155: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0x3E2483aC6E4cB478105140c3Dd2599EFa7093BD8',
+    [optimismSepolia.id]: '0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
@@ -66,7 +66,7 @@ const SDK_CONTRACT_ADDRESSES = {
   BOND: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0xf6589c66e25e42d405e364277228D6D82f031a00',
+    [optimismSepolia.id]: '0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
@@ -87,7 +87,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ZAP: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0xd7Ae80FA42A73B728e661D1D3762468Af34f730F',
+    [optimismSepolia.id]: '0x1e92B115C7195e798Fd4b071305853cE9f324a64',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
@@ -108,7 +108,7 @@ const SDK_CONTRACT_ADDRESSES = {
   LOCKER: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0x3C87543995e5942425BDDd446e2d2c34793E1D51',
+    [optimismSepolia.id]: '0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
@@ -129,7 +129,7 @@ const SDK_CONTRACT_ADDRESSES = {
   MERKLE: {
     [mainnet.id]: '',
     [optimism.id]: '',
-    [optimismSepolia.id]: '0x91ea5Ad4E3928BF998B461A12c61D0CF9fFFF65f',
+    [optimismSepolia.id]: '0x66586554f80cad4aCa263044996DbaD860f47267',
     [arbitrum.id]: '',
     [avalanche.id]: '',
     [polygon.id]: '',
