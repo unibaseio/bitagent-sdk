@@ -3177,7 +3177,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly ERC20: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0x3522D5ed493a727B5955c399743b9AE0D4eAb474";
+        readonly 11155420: "0x82E05B67B8766b78e8351717C956c151eBa5c72C";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3197,7 +3197,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly ERC1155: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0x3E2483aC6E4cB478105140c3Dd2599EFa7093BD8";
+        readonly 11155420: "0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3217,7 +3217,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly BOND: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0xf6589c66e25e42d405e364277228D6D82f031a00";
+        readonly 11155420: "0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3237,7 +3237,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly ZAP: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0xd7Ae80FA42A73B728e661D1D3762468Af34f730F";
+        readonly 11155420: "0x1e92B115C7195e798Fd4b071305853cE9f324a64";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3257,7 +3257,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly LOCKER: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0x3C87543995e5942425BDDd446e2d2c34793E1D51";
+        readonly 11155420: "0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3277,7 +3277,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
     readonly MERKLE: {
         readonly 1: "";
         readonly 10: "";
-        readonly 11155420: "0x91ea5Ad4E3928BF998B461A12c61D0CF9fFFF65f";
+        readonly 11155420: "0x66586554f80cad4aCa263044996DbaD860f47267";
         readonly 42161: "";
         readonly 43114: "";
         readonly 137: "";
@@ -3315,7 +3315,7 @@ declare const SDK_CONTRACT_ADDRESSES: {
         readonly 5112: "0x";
     };
 };
-declare function getMintClubContractAddress(contractName: ContractNames, chainId: SdkSupportedChainIds): "0x3522D5ed493a727B5955c399743b9AE0D4eAb474" | "0x3E2483aC6E4cB478105140c3Dd2599EFa7093BD8" | "0xf6589c66e25e42d405e364277228D6D82f031a00" | "0xd7Ae80FA42A73B728e661D1D3762468Af34f730F" | "0x3C87543995e5942425BDDd446e2d2c34793E1D51" | "0x91ea5Ad4E3928BF998B461A12c61D0CF9fFFF65f" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8" | "0x";
+declare function getMintClubContractAddress(contractName: ContractNames, chainId: SdkSupportedChainIds): "0x82E05B67B8766b78e8351717C956c151eBa5c72C" | "0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed" | "0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf" | "0x1e92B115C7195e798Fd4b071305853cE9f324a64" | "0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A" | "0x66586554f80cad4aCa263044996DbaD860f47267" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8" | "0x";
 type ExcludeValue<T, V> = T extends V ? never : T;
 type ExtractChainIds<T> = T extends {
     [key: string]: infer U;

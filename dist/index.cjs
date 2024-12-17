@@ -174,7 +174,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.0";
+var version = "1.0.2";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -2494,7 +2494,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ERC20: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x3522D5ed493a727B5955c399743b9AE0D4eAb474",
+    [chains.optimismSepolia.id]: "0x82E05B67B8766b78e8351717C956c151eBa5c72C",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -2514,7 +2514,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ERC1155: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x3E2483aC6E4cB478105140c3Dd2599EFa7093BD8",
+    [chains.optimismSepolia.id]: "0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -2534,7 +2534,7 @@ const SDK_CONTRACT_ADDRESSES = {
   BOND: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0xf6589c66e25e42d405e364277228D6D82f031a00",
+    [chains.optimismSepolia.id]: "0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -2554,7 +2554,7 @@ const SDK_CONTRACT_ADDRESSES = {
   ZAP: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0xd7Ae80FA42A73B728e661D1D3762468Af34f730F",
+    [chains.optimismSepolia.id]: "0x1e92B115C7195e798Fd4b071305853cE9f324a64",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -2574,7 +2574,7 @@ const SDK_CONTRACT_ADDRESSES = {
   LOCKER: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x3C87543995e5942425BDDd446e2d2c34793E1D51",
+    [chains.optimismSepolia.id]: "0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -2594,7 +2594,7 @@ const SDK_CONTRACT_ADDRESSES = {
   MERKLE: {
     [chains.mainnet.id]: "",
     [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x91ea5Ad4E3928BF998B461A12c61D0CF9fFFF65f",
+    [chains.optimismSepolia.id]: "0x66586554f80cad4aCa263044996DbaD860f47267",
     [chains.arbitrum.id]: "",
     [chains.avalanche.id]: "",
     [chains.polygon.id]: "",
@@ -5810,7 +5810,7 @@ class Token {
     this.tokenType = tokenType;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId);
+    this.oneinch = new OneInch(chainId === chains.optimismSepolia.id ? chains.optimism.id : chainId);
     this.airdropHelper = new Airdrop(this.chainId);
   }
   async getConnectedWalletAddress() {
