@@ -355,761 +355,580 @@ class AirdropContainsInvalidWalletError extends BaseError {
 
 const BOND_ABI = [
   {
+    type: "constructor",
     inputs: [
-      { internalType: "address", name: "tokenImplementation", type: "address" },
-      {
-        internalType: "address",
-        name: "multiTokenImplementation",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "protocolBeneficiary_",
-        type: "address"
-      },
-      { internalType: "uint256", name: "creationFee_", type: "uint256" },
-      { internalType: "uint256", name: "maxSteps", type: "uint256" }
+      { name: "tokenImplementation", type: "address", internalType: "address" },
+      { name: "multiTokenImplementation", type: "address", internalType: "address" },
+      { name: "protocolBeneficiary_", type: "address", internalType: "address" },
+      { name: "creationFee_", type: "uint256", internalType: "uint256" },
+      { name: "maxSteps", type: "uint256", internalType: "uint256" }
     ],
-    stateMutability: "nonpayable",
-    type: "constructor"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [{ internalType: "address", name: "target", type: "address" }],
-    name: "AddressEmptyCode",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
-    name: "AddressInsufficientBalance",
-    type: "error"
-  },
-  { inputs: [], name: "ERC1167FailedCreateClone", type: "error" },
-  { inputs: [], name: "FailedInnerCall", type: "error" },
-  { inputs: [], name: "MCV2_BOND__InvalidPaginationParameters", type: "error" },
-  {
-    inputs: [],
-    name: "MCV2_Bond__CreationFeeTransactionFailed",
-    type: "error"
-  },
-  { inputs: [], name: "MCV2_Bond__ExceedMaxSupply", type: "error" },
-  { inputs: [], name: "MCV2_Bond__ExceedTotalSupply", type: "error" },
-  {
-    inputs: [{ internalType: "string", name: "reason", type: "string" }],
-    name: "MCV2_Bond__InvalidConstructorParams",
-    type: "error"
-  },
-  { inputs: [], name: "MCV2_Bond__InvalidCreationFee", type: "error" },
-  { inputs: [], name: "MCV2_Bond__InvalidCreatorAddress", type: "error" },
-  { inputs: [], name: "MCV2_Bond__InvalidCurrentSupply", type: "error" },
-  { inputs: [], name: "MCV2_Bond__InvalidReceiver", type: "error" },
-  {
-    inputs: [{ internalType: "string", name: "reason", type: "string" }],
-    name: "MCV2_Bond__InvalidReserveToken",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "string", name: "reason", type: "string" }],
-    name: "MCV2_Bond__InvalidStepParams",
-    type: "error"
-  },
-  { inputs: [], name: "MCV2_Bond__InvalidTokenAmount", type: "error" },
-  {
-    inputs: [{ internalType: "string", name: "reason", type: "string" }],
-    name: "MCV2_Bond__InvalidTokenCreationParams",
-    type: "error"
-  },
-  { inputs: [], name: "MCV2_Bond__PermissionDenied", type: "error" },
-  { inputs: [], name: "MCV2_Bond__SlippageLimitExceeded", type: "error" },
-  { inputs: [], name: "MCV2_Bond__TokenNotFound", type: "error" },
-  { inputs: [], name: "MCV2_Bond__TokenSymbolAlreadyExists", type: "error" },
-  { inputs: [], name: "MCV2_Royalty__InvalidParams", type: "error" },
-  { inputs: [], name: "MCV2_Royalty__NothingToClaim", type: "error" },
-  {
-    inputs: [{ internalType: "address", name: "owner", type: "address" }],
-    name: "OwnableInvalidOwner",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
-    name: "OwnableUnauthorizedAccount",
-    type: "error"
-  },
-  {
-    inputs: [
-      { internalType: "uint8", name: "bits", type: "uint8" },
-      { internalType: "uint256", name: "value", type: "uint256" }
-    ],
-    name: "SafeCastOverflowedUintDowncast",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
-    name: "SafeERC20FailedOperation",
-    type: "error"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address"
-      }
-    ],
-    name: "BondCreatorUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      { indexed: true, internalType: "address", name: "user", type: "address" },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "receiver",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amountBurned",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "refundAmount",
-        type: "uint256"
-      }
-    ],
-    name: "Burn",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "CreationFeeUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      { indexed: true, internalType: "address", name: "user", type: "address" },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "receiver",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amountMinted",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "reserveAmount",
-        type: "uint256"
-      }
-    ],
-    name: "Mint",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "symbol",
-        type: "string"
-      },
-      { indexed: false, internalType: "string", name: "uri", type: "string" },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      }
-    ],
-    name: "MultiTokenCreated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address"
-      }
-    ],
-    name: "OwnershipTransferred",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "protocolBeneficiary",
-        type: "address"
-      }
-    ],
-    name: "ProtocolBeneficiaryUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: "address", name: "user", type: "address" },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "RoyaltyClaimed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "ratio",
-        type: "uint256"
-      }
-    ],
-    name: "RoyaltyRangeUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "symbol",
-        type: "string"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      }
-    ],
-    name: "TokenCreated",
-    type: "event"
-  },
-  {
-    inputs: [],
+    type: "function",
     name: "BURN_ADDRESS",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "address", name: "token", type: "address" },
-      { internalType: "uint256", name: "tokensToBurn", type: "uint256" },
-      { internalType: "uint256", name: "minRefund", type: "uint256" },
-      { internalType: "address", name: "receiver", type: "address" }
-    ],
+    type: "function",
     name: "burn",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
-    type: "function"
+    inputs: [
+      { name: "token", type: "address", internalType: "address" },
+      { name: "tokensToBurn", type: "uint256", internalType: "uint256" },
+      { name: "minRefund", type: "uint256", internalType: "uint256" },
+      { name: "receiver", type: "address", internalType: "address" }
+    ],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [{ internalType: "address", name: "reserveToken", type: "address" }],
+    type: "function",
     name: "burnRoyalties",
+    inputs: [{ name: "reserveToken", type: "address", internalType: "address" }],
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [{ internalType: "address", name: "reserveToken", type: "address" }],
+    type: "function",
     name: "claimRoyalties",
+    inputs: [{ name: "reserveToken", type: "address", internalType: "address" }],
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [
-      {
-        components: [
-          { internalType: "string", name: "name", type: "string" },
-          { internalType: "string", name: "symbol", type: "string" },
-          { internalType: "string", name: "uri", type: "string" }
-        ],
-        internalType: "struct MCV2_Bond.MultiTokenParams",
-        name: "tp",
-        type: "tuple"
-      },
-      {
-        components: [
-          { internalType: "uint16", name: "mintRoyalty", type: "uint16" },
-          { internalType: "uint16", name: "burnRoyalty", type: "uint16" },
-          { internalType: "address", name: "reserveToken", type: "address" },
-          { internalType: "uint128", name: "maxSupply", type: "uint128" },
-          { internalType: "uint128[]", name: "stepRanges", type: "uint128[]" },
-          { internalType: "uint128[]", name: "stepPrices", type: "uint128[]" }
-        ],
-        internalType: "struct MCV2_Bond.BondParams",
-        name: "bp",
-        type: "tuple"
-      }
-    ],
+    type: "function",
     name: "createMultiToken",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "payable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        components: [
-          { internalType: "string", name: "name", type: "string" },
-          { internalType: "string", name: "symbol", type: "string" }
-        ],
-        internalType: "struct MCV2_Bond.TokenParams",
         name: "tp",
-        type: "tuple"
+        type: "tuple",
+        internalType: "struct MCV2_Bond.MultiTokenParams",
+        components: [
+          { name: "name", type: "string", internalType: "string" },
+          { name: "symbol", type: "string", internalType: "string" },
+          { name: "uri", type: "string", internalType: "string" }
+        ]
       },
       {
-        components: [
-          { internalType: "uint16", name: "mintRoyalty", type: "uint16" },
-          { internalType: "uint16", name: "burnRoyalty", type: "uint16" },
-          { internalType: "address", name: "reserveToken", type: "address" },
-          { internalType: "uint128", name: "maxSupply", type: "uint128" },
-          { internalType: "uint128[]", name: "stepRanges", type: "uint128[]" },
-          { internalType: "uint128[]", name: "stepPrices", type: "uint128[]" }
-        ],
-        internalType: "struct MCV2_Bond.BondParams",
         name: "bp",
-        type: "tuple"
+        type: "tuple",
+        internalType: "struct MCV2_Bond.BondParams",
+        components: [
+          { name: "mintRoyalty", type: "uint16", internalType: "uint16" },
+          { name: "burnRoyalty", type: "uint16", internalType: "uint16" },
+          { name: "reserveToken", type: "address", internalType: "address" },
+          { name: "maxSupply", type: "uint128", internalType: "uint128" },
+          { name: "stepRanges", type: "uint128[]", internalType: "uint128[]" },
+          { name: "stepPrices", type: "uint128[]", internalType: "uint128[]" }
+        ]
       }
     ],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "payable"
+  },
+  {
+    type: "function",
     name: "createToken",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "payable",
-    type: "function"
+    inputs: [
+      {
+        name: "tp",
+        type: "tuple",
+        internalType: "struct MCV2_Bond.TokenParams",
+        components: [
+          { name: "name", type: "string", internalType: "string" },
+          { name: "symbol", type: "string", internalType: "string" },
+          { name: "agentHash", type: "bytes32", internalType: "bytes32" }
+        ]
+      },
+      {
+        name: "bp",
+        type: "tuple",
+        internalType: "struct MCV2_Bond.BondParams",
+        components: [
+          { name: "mintRoyalty", type: "uint16", internalType: "uint16" },
+          { name: "burnRoyalty", type: "uint16", internalType: "uint16" },
+          { name: "reserveToken", type: "address", internalType: "address" },
+          { name: "maxSupply", type: "uint128", internalType: "uint128" },
+          { name: "stepRanges", type: "uint128[]", internalType: "uint128[]" },
+          { name: "stepPrices", type: "uint128[]", internalType: "uint128[]" }
+        ]
+      }
+    ],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "payable"
   },
   {
-    inputs: [],
+    type: "function",
     name: "creationFee",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
   },
   {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
+    type: "function",
     name: "exists",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [{ name: "token", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "bool", internalType: "bool" }],
+    stateMutability: "view"
   },
   {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
+    type: "function",
     name: "getDetail",
+    inputs: [{ name: "token", type: "address", internalType: "address" }],
     outputs: [
       {
-        components: [
-          { internalType: "uint16", name: "mintRoyalty", type: "uint16" },
-          { internalType: "uint16", name: "burnRoyalty", type: "uint16" },
-          {
-            components: [
-              { internalType: "address", name: "creator", type: "address" },
-              { internalType: "address", name: "token", type: "address" },
-              { internalType: "uint8", name: "decimals", type: "uint8" },
-              { internalType: "string", name: "symbol", type: "string" },
-              { internalType: "string", name: "name", type: "string" },
-              { internalType: "uint40", name: "createdAt", type: "uint40" },
-              {
-                internalType: "uint128",
-                name: "currentSupply",
-                type: "uint128"
-              },
-              { internalType: "uint128", name: "maxSupply", type: "uint128" },
-              {
-                internalType: "uint128",
-                name: "priceForNextMint",
-                type: "uint128"
-              },
-              {
-                internalType: "address",
-                name: "reserveToken",
-                type: "address"
-              },
-              { internalType: "uint8", name: "reserveDecimals", type: "uint8" },
-              { internalType: "string", name: "reserveSymbol", type: "string" },
-              { internalType: "string", name: "reserveName", type: "string" },
-              {
-                internalType: "uint256",
-                name: "reserveBalance",
-                type: "uint256"
-              }
-            ],
-            internalType: "struct MCV2_Bond.BondInfo",
-            name: "info",
-            type: "tuple"
-          },
-          {
-            components: [
-              { internalType: "uint128", name: "rangeTo", type: "uint128" },
-              { internalType: "uint128", name: "price", type: "uint128" }
-            ],
-            internalType: "struct MCV2_Bond.BondStep[]",
-            name: "steps",
-            type: "tuple[]"
-          }
-        ],
-        internalType: "struct MCV2_Bond.BondDetail",
         name: "detail",
-        type: "tuple"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "uint256", name: "start", type: "uint256" },
-      { internalType: "uint256", name: "stop", type: "uint256" }
-    ],
-    name: "getList",
-    outputs: [
-      {
+        type: "tuple",
+        internalType: "struct MCV2_Bond.BondDetail",
         components: [
-          { internalType: "address", name: "creator", type: "address" },
-          { internalType: "address", name: "token", type: "address" },
-          { internalType: "uint8", name: "decimals", type: "uint8" },
-          { internalType: "string", name: "symbol", type: "string" },
-          { internalType: "string", name: "name", type: "string" },
-          { internalType: "uint40", name: "createdAt", type: "uint40" },
-          { internalType: "uint128", name: "currentSupply", type: "uint128" },
-          { internalType: "uint128", name: "maxSupply", type: "uint128" },
+          { name: "mintRoyalty", type: "uint16", internalType: "uint16" },
+          { name: "burnRoyalty", type: "uint16", internalType: "uint16" },
           {
-            internalType: "uint128",
-            name: "priceForNextMint",
-            type: "uint128"
+            name: "info",
+            type: "tuple",
+            internalType: "struct MCV2_Bond.BondInfo",
+            components: [
+              { name: "creator", type: "address", internalType: "address" },
+              { name: "token", type: "address", internalType: "address" },
+              { name: "decimals", type: "uint8", internalType: "uint8" },
+              { name: "symbol", type: "string", internalType: "string" },
+              { name: "name", type: "string", internalType: "string" },
+              { name: "createdAt", type: "uint40", internalType: "uint40" },
+              { name: "currentSupply", type: "uint128", internalType: "uint128" },
+              { name: "maxSupply", type: "uint128", internalType: "uint128" },
+              { name: "priceForNextMint", type: "uint128", internalType: "uint128" },
+              { name: "reserveToken", type: "address", internalType: "address" },
+              { name: "reserveDecimals", type: "uint8", internalType: "uint8" },
+              { name: "reserveSymbol", type: "string", internalType: "string" },
+              { name: "reserveName", type: "string", internalType: "string" },
+              { name: "reserveBalance", type: "uint256", internalType: "uint256" }
+            ]
           },
-          { internalType: "address", name: "reserveToken", type: "address" },
-          { internalType: "uint8", name: "reserveDecimals", type: "uint8" },
-          { internalType: "string", name: "reserveSymbol", type: "string" },
-          { internalType: "string", name: "reserveName", type: "string" },
-          { internalType: "uint256", name: "reserveBalance", type: "uint256" }
-        ],
-        internalType: "struct MCV2_Bond.BondInfo[]",
+          {
+            name: "steps",
+            type: "tuple[]",
+            internalType: "struct MCV2_Bond.BondStep[]",
+            components: [
+              { name: "rangeTo", type: "uint128", internalType: "uint128" },
+              { name: "price", type: "uint128", internalType: "uint128" }
+            ]
+          }
+        ]
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getList",
+    inputs: [
+      { name: "start", type: "uint256", internalType: "uint256" },
+      { name: "stop", type: "uint256", internalType: "uint256" }
+    ],
+    outputs: [
+      {
         name: "info",
-        type: "tuple[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "token", type: "address" },
-      { internalType: "uint256", name: "tokensToBurn", type: "uint256" }
-    ],
-    name: "getRefundForTokens",
-    outputs: [
-      { internalType: "uint256", name: "refundAmount", type: "uint256" },
-      { internalType: "uint256", name: "royalty", type: "uint256" }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "token", type: "address" },
-      { internalType: "uint256", name: "tokensToMint", type: "uint256" }
-    ],
-    name: "getReserveForToken",
-    outputs: [
-      { internalType: "uint256", name: "reserveAmount", type: "uint256" },
-      { internalType: "uint256", name: "royalty", type: "uint256" }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "wallet", type: "address" },
-      { internalType: "address", name: "reserveToken", type: "address" }
-    ],
-    name: "getRoyaltyInfo",
-    outputs: [
-      { internalType: "uint256", name: "", type: "uint256" },
-      { internalType: "uint256", name: "", type: "uint256" }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
-    name: "getSteps",
-    outputs: [
-      {
+        type: "tuple[]",
+        internalType: "struct MCV2_Bond.BondInfo[]",
         components: [
-          { internalType: "uint128", name: "rangeTo", type: "uint128" },
-          { internalType: "uint128", name: "price", type: "uint128" }
-        ],
-        internalType: "struct MCV2_Bond.BondStep[]",
-        name: "",
-        type: "tuple[]"
+          { name: "creator", type: "address", internalType: "address" },
+          { name: "token", type: "address", internalType: "address" },
+          { name: "decimals", type: "uint8", internalType: "uint8" },
+          { name: "symbol", type: "string", internalType: "string" },
+          { name: "name", type: "string", internalType: "string" },
+          { name: "createdAt", type: "uint40", internalType: "uint40" },
+          { name: "currentSupply", type: "uint128", internalType: "uint128" },
+          { name: "maxSupply", type: "uint128", internalType: "uint128" },
+          { name: "priceForNextMint", type: "uint128", internalType: "uint128" },
+          { name: "reserveToken", type: "address", internalType: "address" },
+          { name: "reserveDecimals", type: "uint8", internalType: "uint8" },
+          { name: "reserveSymbol", type: "string", internalType: "string" },
+          { name: "reserveName", type: "string", internalType: "string" },
+          { name: "reserveBalance", type: "uint256", internalType: "uint256" }
+        ]
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "getRefundForTokens",
     inputs: [
-      { internalType: "address", name: "creator", type: "address" },
-      { internalType: "uint256", name: "start", type: "uint256" },
-      { internalType: "uint256", name: "stop", type: "uint256" }
+      { name: "token", type: "address", internalType: "address" },
+      { name: "tokensToBurn", type: "uint256", internalType: "uint256" }
     ],
-    name: "getTokensByCreator",
-    outputs: [{ internalType: "address[]", name: "addresses", type: "address[]" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "reserveToken", type: "address" },
-      { internalType: "uint256", name: "start", type: "uint256" },
-      { internalType: "uint256", name: "stop", type: "uint256" }
-    ],
-    name: "getTokensByReserveToken",
-    outputs: [{ internalType: "address[]", name: "addresses", type: "address[]" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "maxRoyaltyRange",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
-    name: "maxSupply",
-    outputs: [{ internalType: "uint128", name: "", type: "uint128" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "token", type: "address" },
-      { internalType: "uint256", name: "tokensToMint", type: "uint256" },
-      { internalType: "uint256", name: "maxReserveAmount", type: "uint256" },
-      { internalType: "address", name: "receiver", type: "address" }
-    ],
-    name: "mint",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "address", name: "token", type: "address" }],
-    name: "priceForNextMint",
-    outputs: [{ internalType: "uint128", name: "", type: "uint128" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "protocolBeneficiary",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "address", name: "", type: "address" }],
-    name: "tokenBond",
     outputs: [
-      { internalType: "address", name: "creator", type: "address" },
-      { internalType: "uint16", name: "mintRoyalty", type: "uint16" },
-      { internalType: "uint16", name: "burnRoyalty", type: "uint16" },
-      { internalType: "uint40", name: "createdAt", type: "uint40" },
-      { internalType: "address", name: "reserveToken", type: "address" },
-      { internalType: "uint256", name: "reserveBalance", type: "uint256" }
+      { name: "refundAmount", type: "uint256", internalType: "uint256" },
+      { name: "royalty", type: "uint256", internalType: "uint256" }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
-    name: "tokenCount",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    name: "tokens",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
+    type: "function",
+    name: "getReserveForToken",
     inputs: [
-      { internalType: "address", name: "token", type: "address" },
-      { internalType: "address", name: "creator", type: "address" }
+      { name: "token", type: "address", internalType: "address" },
+      { name: "tokensToMint", type: "uint256", internalType: "uint256" }
     ],
-    name: "updateBondCreator",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    outputs: [
+      { name: "reserveAmount", type: "uint256", internalType: "uint256" },
+      { name: "royalty", type: "uint256", internalType: "uint256" }
+    ],
+    stateMutability: "view"
   },
   {
-    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
-    name: "updateCreationFee",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "ratio", type: "uint256" }],
-    name: "updateMaxRoyaltyRange",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
+    type: "function",
+    name: "getRoyaltyInfo",
     inputs: [
+      { name: "wallet", type: "address", internalType: "address" },
+      { name: "reserveToken", type: "address", internalType: "address" }
+    ],
+    outputs: [
+      { name: "", type: "uint256", internalType: "uint256" },
+      { name: "", type: "uint256", internalType: "uint256" }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getSteps",
+    inputs: [{ name: "token", type: "address", internalType: "address" }],
+    outputs: [
       {
-        internalType: "address",
-        name: "protocolBeneficiary_",
-        type: "address"
+        name: "",
+        type: "tuple[]",
+        internalType: "struct MCV2_Bond.BondStep[]",
+        components: [
+          { name: "rangeTo", type: "uint128", internalType: "uint128" },
+          { name: "price", type: "uint128", internalType: "uint128" }
+        ]
       }
     ],
-    name: "updateProtocolBeneficiary",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "getTokensByCreator",
     inputs: [
-      { internalType: "address", name: "", type: "address" },
-      { internalType: "address", name: "", type: "address" }
+      { name: "creator", type: "address", internalType: "address" },
+      { name: "start", type: "uint256", internalType: "uint256" },
+      { name: "stop", type: "uint256", internalType: "uint256" }
     ],
-    name: "userTokenRoyaltyBalance",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    outputs: [{ name: "addresses", type: "address[]", internalType: "address[]" }],
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "getTokensByReserveToken",
     inputs: [
-      { internalType: "address", name: "", type: "address" },
-      { internalType: "address", name: "", type: "address" }
+      { name: "reserveToken", type: "address", internalType: "address" },
+      { name: "start", type: "uint256", internalType: "uint256" },
+      { name: "stop", type: "uint256", internalType: "uint256" }
     ],
-    name: "userTokenRoyaltyClaimed",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    outputs: [{ name: "addresses", type: "address[]", internalType: "address[]" }],
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "maxRoyaltyRange",
     inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "maxSupply",
+    inputs: [{ name: "token", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "uint128", internalType: "uint128" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "mint",
+    inputs: [
+      { name: "token", type: "address", internalType: "address" },
+      { name: "tokensToMint", type: "uint256", internalType: "uint256" },
+      { name: "maxReserveAmount", type: "uint256", internalType: "uint256" },
+      { name: "receiver", type: "address", internalType: "address" }
+    ],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "owner",
+    inputs: [],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "priceForNextMint",
+    inputs: [{ name: "token", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "uint128", internalType: "uint128" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "protocolBeneficiary",
+    inputs: [],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view"
+  },
+  { type: "function", name: "renounceOwnership", inputs: [], outputs: [], stateMutability: "nonpayable" },
+  {
+    type: "function",
+    name: "tokenBond",
+    inputs: [{ name: "", type: "address", internalType: "address" }],
+    outputs: [
+      { name: "creator", type: "address", internalType: "address" },
+      { name: "mintRoyalty", type: "uint16", internalType: "uint16" },
+      { name: "burnRoyalty", type: "uint16", internalType: "uint16" },
+      { name: "createdAt", type: "uint40", internalType: "uint40" },
+      { name: "reserveToken", type: "address", internalType: "address" },
+      { name: "reserveBalance", type: "uint256", internalType: "uint256" }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "tokenCount",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "tokens",
+    inputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "transferOwnership",
+    inputs: [{ name: "newOwner", type: "address", internalType: "address" }],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateBondCreator",
+    inputs: [
+      { name: "token", type: "address", internalType: "address" },
+      { name: "creator", type: "address", internalType: "address" }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateCreationFee",
+    inputs: [{ name: "amount", type: "uint256", internalType: "uint256" }],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateMaxRoyaltyRange",
+    inputs: [{ name: "ratio", type: "uint256", internalType: "uint256" }],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateProtocolBeneficiary",
+    inputs: [{ name: "protocolBeneficiary_", type: "address", internalType: "address" }],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "userTokenRoyaltyBalance",
+    inputs: [
+      { name: "", type: "address", internalType: "address" },
+      { name: "", type: "address", internalType: "address" }
+    ],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "userTokenRoyaltyClaimed",
+    inputs: [
+      { name: "", type: "address", internalType: "address" },
+      { name: "", type: "address", internalType: "address" }
+    ],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
     name: "version",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "pure",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "string", internalType: "string" }],
+    stateMutability: "pure"
+  },
+  {
+    type: "event",
+    name: "BondCreatorUpdated",
+    inputs: [
+      { name: "token", type: "address", indexed: true, internalType: "address" },
+      { name: "creator", type: "address", indexed: true, internalType: "address" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "Burn",
+    inputs: [
+      { name: "token", type: "address", indexed: true, internalType: "address" },
+      { name: "user", type: "address", indexed: true, internalType: "address" },
+      { name: "receiver", type: "address", indexed: false, internalType: "address" },
+      { name: "amountBurned", type: "uint256", indexed: false, internalType: "uint256" },
+      { name: "reserveToken", type: "address", indexed: true, internalType: "address" },
+      { name: "refundAmount", type: "uint256", indexed: false, internalType: "uint256" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "CreationFeeUpdated",
+    inputs: [{ name: "amount", type: "uint256", indexed: false, internalType: "uint256" }],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "Mint",
+    inputs: [
+      { name: "token", type: "address", indexed: true, internalType: "address" },
+      { name: "user", type: "address", indexed: true, internalType: "address" },
+      { name: "receiver", type: "address", indexed: false, internalType: "address" },
+      { name: "amountMinted", type: "uint256", indexed: false, internalType: "uint256" },
+      { name: "reserveToken", type: "address", indexed: true, internalType: "address" },
+      { name: "reserveAmount", type: "uint256", indexed: false, internalType: "uint256" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "MultiTokenCreated",
+    inputs: [
+      { name: "token", type: "address", indexed: true, internalType: "address" },
+      { name: "name", type: "string", indexed: false, internalType: "string" },
+      { name: "symbol", type: "string", indexed: false, internalType: "string" },
+      { name: "uri", type: "string", indexed: false, internalType: "string" },
+      { name: "reserveToken", type: "address", indexed: true, internalType: "address" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "OwnershipTransferred",
+    inputs: [
+      { name: "previousOwner", type: "address", indexed: true, internalType: "address" },
+      { name: "newOwner", type: "address", indexed: true, internalType: "address" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProtocolBeneficiaryUpdated",
+    inputs: [{ name: "protocolBeneficiary", type: "address", indexed: false, internalType: "address" }],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "RoyaltyClaimed",
+    inputs: [
+      { name: "user", type: "address", indexed: true, internalType: "address" },
+      { name: "reserveToken", type: "address", indexed: false, internalType: "address" },
+      { name: "amount", type: "uint256", indexed: false, internalType: "uint256" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "RoyaltyRangeUpdated",
+    inputs: [{ name: "ratio", type: "uint256", indexed: false, internalType: "uint256" }],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "TokenCreated",
+    inputs: [
+      { name: "token", type: "address", indexed: true, internalType: "address" },
+      { name: "name", type: "string", indexed: false, internalType: "string" },
+      { name: "symbol", type: "string", indexed: false, internalType: "string" },
+      { name: "reserveToken", type: "address", indexed: true, internalType: "address" },
+      { name: "agenthash", type: "bytes32", indexed: true, internalType: "bytes32" }
+    ],
+    anonymous: false
+  },
+  { type: "error", name: "AddressEmptyCode", inputs: [{ name: "target", type: "address", internalType: "address" }] },
+  {
+    type: "error",
+    name: "AddressInsufficientBalance",
+    inputs: [{ name: "account", type: "address", internalType: "address" }]
+  },
+  { type: "error", name: "ERC1167FailedCreateClone", inputs: [] },
+  { type: "error", name: "FailedInnerCall", inputs: [] },
+  { type: "error", name: "MCV2_BOND__InvalidPaginationParameters", inputs: [] },
+  { type: "error", name: "MCV2_Bond__CreationFeeTransactionFailed", inputs: [] },
+  { type: "error", name: "MCV2_Bond__ExceedMaxSupply", inputs: [] },
+  { type: "error", name: "MCV2_Bond__ExceedTotalSupply", inputs: [] },
+  {
+    type: "error",
+    name: "MCV2_Bond__InvalidConstructorParams",
+    inputs: [{ name: "reason", type: "string", internalType: "string" }]
+  },
+  { type: "error", name: "MCV2_Bond__InvalidCreationFee", inputs: [] },
+  { type: "error", name: "MCV2_Bond__InvalidCreatorAddress", inputs: [] },
+  { type: "error", name: "MCV2_Bond__InvalidCurrentSupply", inputs: [] },
+  { type: "error", name: "MCV2_Bond__InvalidReceiver", inputs: [] },
+  {
+    type: "error",
+    name: "MCV2_Bond__InvalidReserveToken",
+    inputs: [{ name: "reason", type: "string", internalType: "string" }]
+  },
+  {
+    type: "error",
+    name: "MCV2_Bond__InvalidStepParams",
+    inputs: [{ name: "reason", type: "string", internalType: "string" }]
+  },
+  { type: "error", name: "MCV2_Bond__InvalidTokenAmount", inputs: [] },
+  {
+    type: "error",
+    name: "MCV2_Bond__InvalidTokenCreationParams",
+    inputs: [{ name: "reason", type: "string", internalType: "string" }]
+  },
+  { type: "error", name: "MCV2_Bond__PermissionDenied", inputs: [] },
+  { type: "error", name: "MCV2_Bond__SlippageLimitExceeded", inputs: [] },
+  { type: "error", name: "MCV2_Bond__TokenNotFound", inputs: [] },
+  { type: "error", name: "MCV2_Bond__TokenSymbolAlreadyExists", inputs: [] },
+  { type: "error", name: "MCV2_Royalty__InvalidParams", inputs: [] },
+  { type: "error", name: "MCV2_Royalty__NothingToClaim", inputs: [] },
+  { type: "error", name: "OwnableInvalidOwner", inputs: [{ name: "owner", type: "address", internalType: "address" }] },
+  {
+    type: "error",
+    name: "OwnableUnauthorizedAccount",
+    inputs: [{ name: "account", type: "address", internalType: "address" }]
+  },
+  {
+    type: "error",
+    name: "SafeCastOverflowedUintDowncast",
+    inputs: [
+      { name: "bits", type: "uint8", internalType: "uint8" },
+      { name: "value", type: "uint256", internalType: "uint256" }
+    ]
+  },
+  {
+    type: "error",
+    name: "SafeERC20FailedOperation",
+    inputs: [{ name: "token", type: "address", internalType: "address" }]
   }
 ];
 
@@ -1403,198 +1222,182 @@ const ERC1155_ABI = [
 
 const ERC20_ABI = [
   {
-    inputs: [
-      { internalType: "address", name: "spender", type: "address" },
-      { internalType: "uint256", name: "allowance", type: "uint256" },
-      { internalType: "uint256", name: "needed", type: "uint256" }
-    ],
-    name: "ERC20InsufficientAllowance",
-    type: "error"
+    type: "function",
+    name: "agentHash",
+    inputs: [],
+    outputs: [{ name: "", type: "bytes32", internalType: "bytes32" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "address", name: "sender", type: "address" },
-      { internalType: "uint256", name: "balance", type: "uint256" },
-      { internalType: "uint256", name: "needed", type: "uint256" }
-    ],
-    name: "ERC20InsufficientBalance",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "approver", type: "address" }],
-    name: "ERC20InvalidApprover",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "receiver", type: "address" }],
-    name: "ERC20InvalidReceiver",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "sender", type: "address" }],
-    name: "ERC20InvalidSender",
-    type: "error"
-  },
-  {
-    inputs: [{ internalType: "address", name: "spender", type: "address" }],
-    name: "ERC20InvalidSpender",
-    type: "error"
-  },
-  { inputs: [], name: "MCV2_Token__AlreadyInitialized", type: "error" },
-  { inputs: [], name: "MCV2_Token__PermissionDenied", type: "error" },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Approval",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: "address", name: "from", type: "address" },
-      { indexed: true, internalType: "address", name: "to", type: "address" },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Transfer",
-    type: "event"
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "owner", type: "address" },
-      { internalType: "address", name: "spender", type: "address" }
-    ],
+    type: "function",
     name: "allowance",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [
+      { name: "owner", type: "address", internalType: "address" },
+      { name: "spender", type: "address", internalType: "address" }
+    ],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "address", name: "spender", type: "address" },
-      { internalType: "uint256", name: "value", type: "uint256" }
-    ],
+    type: "function",
     name: "approve",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function"
+    inputs: [
+      { name: "spender", type: "address", internalType: "address" },
+      { name: "value", type: "uint256", internalType: "uint256" }
+    ],
+    outputs: [{ name: "", type: "bool", internalType: "bool" }],
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    type: "function",
     name: "balanceOf",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [{ name: "account", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "bond",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "address", name: "account", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" }
-    ],
+    type: "function",
     name: "burnByBond",
+    inputs: [
+      { name: "account", type: "address", internalType: "address" },
+      { name: "amount", type: "uint256", internalType: "uint256" }
+    ],
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [],
+    type: "function",
     name: "decimals",
-    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "uint8", internalType: "uint8" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "string", name: "name_", type: "string" },
-      { internalType: "string", name: "symbol_", type: "string" }
-    ],
+    type: "function",
     name: "init",
+    inputs: [
+      { name: "name_", type: "string", internalType: "string" },
+      { name: "symbol_", type: "string", internalType: "string" },
+      { name: "agentHash_", type: "bytes32", internalType: "bytes32" }
+    ],
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" }
-    ],
+    type: "function",
     name: "mintByBond",
+    inputs: [
+      { name: "to", type: "address", internalType: "address" },
+      { name: "amount", type: "uint256", internalType: "uint256" }
+    ],
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [],
+    type: "function",
     name: "name",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "string", internalType: "string" }],
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "symbol",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
     inputs: [],
+    outputs: [{ name: "", type: "string", internalType: "string" }],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
     name: "totalSupply",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function"
+    inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view"
   },
   {
-    inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "value", type: "uint256" }
-    ],
+    type: "function",
     name: "transfer",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function"
+    inputs: [
+      { name: "to", type: "address", internalType: "address" },
+      { name: "value", type: "uint256", internalType: "uint256" }
+    ],
+    outputs: [{ name: "", type: "bool", internalType: "bool" }],
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [
-      { internalType: "address", name: "from", type: "address" },
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "value", type: "uint256" }
-    ],
+    type: "function",
     name: "transferFrom",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function"
-  }
+    inputs: [
+      { name: "from", type: "address", internalType: "address" },
+      { name: "to", type: "address", internalType: "address" },
+      { name: "value", type: "uint256", internalType: "uint256" }
+    ],
+    outputs: [{ name: "", type: "bool", internalType: "bool" }],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "event",
+    name: "Approval",
+    inputs: [
+      { name: "owner", type: "address", indexed: true, internalType: "address" },
+      { name: "spender", type: "address", indexed: true, internalType: "address" },
+      { name: "value", type: "uint256", indexed: false, internalType: "uint256" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "Transfer",
+    inputs: [
+      { name: "from", type: "address", indexed: true, internalType: "address" },
+      { name: "to", type: "address", indexed: true, internalType: "address" },
+      { name: "value", type: "uint256", indexed: false, internalType: "uint256" }
+    ],
+    anonymous: false
+  },
+  {
+    type: "error",
+    name: "ERC20InsufficientAllowance",
+    inputs: [
+      { name: "spender", type: "address", internalType: "address" },
+      { name: "allowance", type: "uint256", internalType: "uint256" },
+      { name: "needed", type: "uint256", internalType: "uint256" }
+    ]
+  },
+  {
+    type: "error",
+    name: "ERC20InsufficientBalance",
+    inputs: [
+      { name: "sender", type: "address", internalType: "address" },
+      { name: "balance", type: "uint256", internalType: "uint256" },
+      { name: "needed", type: "uint256", internalType: "uint256" }
+    ]
+  },
+  {
+    type: "error",
+    name: "ERC20InvalidApprover",
+    inputs: [{ name: "approver", type: "address", internalType: "address" }]
+  },
+  {
+    type: "error",
+    name: "ERC20InvalidReceiver",
+    inputs: [{ name: "receiver", type: "address", internalType: "address" }]
+  },
+  { type: "error", name: "ERC20InvalidSender", inputs: [{ name: "sender", type: "address", internalType: "address" }] },
+  {
+    type: "error",
+    name: "ERC20InvalidSpender",
+    inputs: [{ name: "spender", type: "address", internalType: "address" }]
+  },
+  { type: "error", name: "MCV2_Token__AlreadyInitialized", inputs: [] },
+  { type: "error", name: "MCV2_Token__PermissionDenied", inputs: [] }
 ];
 
 const LOCKER_ABI = [
@@ -5345,6 +5148,7 @@ function generateCreateArgs(params) {
     tokenType,
     name,
     symbol,
+    agentHash,
     curveData,
     reserveToken,
     buyRoyalty = 0.03,
@@ -5432,7 +5236,8 @@ function generateCreateArgs(params) {
   }
   const tokenParams = {
     name,
-    symbol
+    symbol,
+    agentHash
   };
   const bondParams = {
     mintRoyalty: buyRoyalty * 100,

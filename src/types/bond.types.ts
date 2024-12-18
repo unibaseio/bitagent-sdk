@@ -34,6 +34,7 @@ type WithStepData = {
 export type CreateERC20TokenParams = {
   // required
   name: string;
+  agentHash: `0x${string}`;
   reserveToken: ReserveToken;
   buyRoyalty?: number;
   sellRoyalty?: number;

@@ -10,6 +10,7 @@ export function generateCreateArgs(params: CreateTokenParams & { tokenType: 'ERC
     tokenType,
     name,
     symbol,
+    agentHash,
     curveData,
     reserveToken,
     buyRoyalty = 0.03,
@@ -117,10 +118,12 @@ export function generateCreateArgs(params: CreateTokenParams & { tokenType: 'ERC
   const tokenParams: {
     name: string;
     symbol: string;
+    agentHash: `0x${string}`;
     uri?: string;
   } = {
     name,
     symbol,
+    agentHash
   };
 
   const bondParams = {
