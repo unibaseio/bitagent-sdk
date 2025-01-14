@@ -174,7 +174,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.5";
+var version = "1.0.6";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -6317,8 +6317,7 @@ class MintClubSDK {
     } else {
       chainId = id;
     }
-    const clientHelper = new Client();
-    return this.withClientHelper(clientHelper, chainId);
+    return this.withClientHelper(this.wallet, chainId);
   }
   withClientHelper(clientHelper, chainId) {
     return Object.assign(clientHelper, {
@@ -6345,14 +6344,14 @@ class MintClubSDK {
   withPublicClient(publicClient) {
     const chainId = publicClient.chain?.id;
     if (chainId === void 0) throw new InvalidClientError();
-    new Client().withPublicClient(publicClient);
+    this.wallet = this.wallet.withPublicClient(publicClient);
     return this;
   }
   withWalletClient(walletClient) {
     const chainId = walletClient.chain?.id;
     if (chainId === void 0) throw new InvalidClientError();
     if (walletClient.chain?.id === void 0) throw new InvalidClientError();
-    new Client().withWalletClient(walletClient);
+    this.wallet = this.wallet.withWalletClient(walletClient);
     return this;
   }
 }
