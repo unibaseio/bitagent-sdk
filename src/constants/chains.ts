@@ -7,6 +7,7 @@ import {
   blast,
   blastSepolia,
   bsc,
+  bscTestnet,
   kaia,
   mainnet,
   optimism,
@@ -37,6 +38,7 @@ export type ChainType = {
     | 'Avalanche'
     | 'Polygon'
     | 'BNBChain'
+    | 'BNBChainTestnet'
     | 'Sepolia'
     | 'Kaia'
     | 'Ham'
@@ -141,6 +143,15 @@ export const CHAINS: Array<ChainType> = [
     color: '#F0B90B',
     openseaSlug: 'bsc',
     enabled: isAddress(getMintClubContractAddress('BOND', bsc.id)),
+    chain: bsc,
+  },
+  {
+    id: bscTestnet.id,
+    name: 'BNBChainTestnet',
+    icon: 'https://mint.club/assets/networks/bnb@2x.png',
+    color: '#F0B90B',
+    openseaSlug: 'bscTestnet',
+    enabled: isAddress(getMintClubContractAddress('BOND', bscTestnet.id)),
     chain: bsc,
   },
   {

@@ -1,5 +1,5 @@
 import * as chains from 'viem/chains';
-import { mainnet, optimism, optimismSepolia, arbitrum, avalanche, polygon, bsc, base, baseSepolia, sepolia, blast, blastSepolia, avalancheFuji, degen, cyberTestnet, kaia, cyber, ham, zora } from 'viem/chains';
+import { mainnet, optimism, optimismSepolia, arbitrum, avalanche, polygon, bsc, bscTestnet, base, baseSepolia, sepolia, blast, blastSepolia, avalancheFuji, degen, cyberTestnet, kaia, cyber, ham, zora } from 'viem/chains';
 import { parseUnits, formatUnits, isAddress, http, createWalletClient, custom, createPublicClient, fallback, publicActions, stringToHex, keccak256, hexToBytes, getAddress, bytesToHex, maxUint256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import MerkleTree from 'merkletreejs';
@@ -154,7 +154,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.2";
+var version = "1.0.5";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -2275,124 +2275,130 @@ const ZAP_ABI = [
 
 const SDK_CONTRACT_ADDRESSES = {
   ERC20: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0x82E05B67B8766b78e8351717C956c151eBa5c72C",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [optimism.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [optimismSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [arbitrum.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [avalanche.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [polygon.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [bsc.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [bscTestnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [base.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [baseSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [sepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [blast.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [blastSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [avalancheFuji.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [degen.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [cyberTestnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [kaia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [cyber.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [ham.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB"
   },
   ERC1155: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [optimism.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [optimismSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [arbitrum.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [avalanche.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [polygon.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [bsc.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [bscTestnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [base.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [baseSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [sepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [blast.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [blastSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [avalancheFuji.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [degen.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [cyberTestnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [kaia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [cyber.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [ham.id]: "0x187E536C5404dD472476B9e4C716878d359a506A"
   },
   BOND: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [optimism.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [optimismSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [arbitrum.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [avalanche.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [polygon.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [bsc.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [bscTestnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [base.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [baseSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [sepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [blast.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [blastSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [avalancheFuji.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [degen.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [cyberTestnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [kaia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [cyber.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [ham.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B"
   },
   ZAP: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0x1e92B115C7195e798Fd4b071305853cE9f324a64",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [optimism.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [optimismSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [arbitrum.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [avalanche.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [polygon.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [bsc.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [bscTestnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [base.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [baseSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [sepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [blast.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [blastSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [avalancheFuji.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [degen.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [cyberTestnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [kaia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [cyber.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [ham.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537"
   },
   LOCKER: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [optimism.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [optimismSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [arbitrum.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [avalanche.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [polygon.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [bsc.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [bscTestnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [base.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [baseSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [sepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [blast.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [blastSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [avalancheFuji.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [degen.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [cyberTestnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [kaia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [cyber.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [ham.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867"
   },
   MERKLE: {
-    [mainnet.id]: "",
-    [optimism.id]: "",
-    [optimismSepolia.id]: "0x66586554f80cad4aCa263044996DbaD860f47267",
-    [arbitrum.id]: "",
-    [avalanche.id]: "",
-    [polygon.id]: "",
-    [bsc.id]: "",
-    [base.id]: "",
-    [baseSepolia.id]: "",
-    [sepolia.id]: "",
-    [blast.id]: "",
-    [blastSepolia.id]: "",
-    [avalancheFuji.id]: "",
-    [degen.id]: "",
-    [cyberTestnet.id]: "",
-    [kaia.id]: "",
-    [cyber.id]: "",
-    [ham.id]: ""
+    [mainnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [optimism.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [optimismSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [arbitrum.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [avalanche.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [polygon.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [bsc.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [bscTestnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [base.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [baseSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [sepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [blast.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [blastSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [avalancheFuji.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [degen.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [cyberTestnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [kaia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [cyber.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [ham.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225"
   },
   ONEINCH: {
     [mainnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
@@ -2402,17 +2408,18 @@ const SDK_CONTRACT_ADDRESSES = {
     [avalanche.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [polygon.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [bsc.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [bscTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [base.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [kaia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
-    [sepolia.id]: "0x",
-    [baseSepolia.id]: "0x",
-    [blast.id]: "0x",
-    [blastSepolia.id]: "0x",
-    [avalancheFuji.id]: "0x",
-    [degen.id]: "0x",
-    [cyberTestnet.id]: "0x",
-    [cyber.id]: "0x",
-    [ham.id]: "0x"
+    [sepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [baseSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [blast.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [blastSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [avalancheFuji.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [degen.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [cyberTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [cyber.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
 };
 function getMintClubContractAddress(contractName, chainId) {
@@ -2515,6 +2522,15 @@ const CHAINS = [
     color: "#F0B90B",
     openseaSlug: "bsc",
     enabled: isAddress(getMintClubContractAddress("BOND", bsc.id)),
+    chain: bsc
+  },
+  {
+    id: bscTestnet.id,
+    name: "BNBChainTestnet",
+    icon: "https://mint.club/assets/networks/bnb@2x.png",
+    color: "#F0B90B",
+    openseaSlug: "bscTestnet",
+    enabled: isAddress(getMintClubContractAddress("BOND", bscTestnet.id)),
     chain: bsc
   },
   {
@@ -4481,6 +4497,16 @@ const HAM_TOKENS = {
   // },
 };
 
+const BSC_TESTNET_TOKENS = {
+  "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd": {
+    name: "Wrapped BNB",
+    symbol: "WBNB",
+    address: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+    decimals: 18,
+    image: "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png"
+  }
+};
+
 const COINGECKO_NETWORK_IDS = {
   [mainnet.id]: "ethereum",
   [optimism.id]: "optimistic-ethereum",
@@ -4544,6 +4570,13 @@ const WRAPPED_NATIVE_TOKENS = {
   [bsc.id]: {
     image: "https://mint.club/assets/tokens/bnb.png",
     tokenAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    nativeSymbol: "BNB",
+    oneInchSymbol: "USDT",
+    decimals: 18
+  },
+  [bscTestnet.id]: {
+    image: "https://mint.club/assets/tokens/bnb.png",
+    tokenAddress: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
     nativeSymbol: "BNB",
     oneInchSymbol: "USDT",
     decimals: 18
@@ -4635,6 +4668,7 @@ const TOKENS = {
   [avalanche.id]: AVALANCHE_TOKENS,
   [polygon.id]: POLYGON_TOKENS,
   [bsc.id]: BSC_TOKENS,
+  [bscTestnet.id]: BSC_TESTNET_TOKENS,
   [base.id]: BASE_TOKENS,
   [blast.id]: BLAST_TOKENS,
   [blastSepolia.id]: BLAST_SEPOLIA_TOKENS,
@@ -5530,6 +5564,13 @@ const STABLE_COINS = {
     decimals: 18n
   },
   // USDT
+  // TODO
+  [bscTestnet.id]: {
+    address: "0x55d398326f99059ff775485246999027b3197955",
+    symbol: "USDT",
+    decimals: 18n
+  },
+  // USDT
   [base.id]: {
     address: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",
     symbol: "USDBC",
@@ -5595,7 +5636,7 @@ class Token {
     this.tokenType = tokenType;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId === optimismSepolia.id ? optimism.id : chainId);
+    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId);
     this.airdropHelper = new Airdrop(this.chainId);
   }
   async getConnectedWalletAddress() {
@@ -6399,6 +6440,7 @@ const supportedChainsMap = {
   sepolia: sepolia.id,
   basesepolia: baseSepolia.id,
   bnbchain: bsc.id,
+  bnbchaintestnet: bscTestnet.id,
   polygon: polygon.id,
   arbitrum: arbitrum.id,
   kaia: kaia.id,

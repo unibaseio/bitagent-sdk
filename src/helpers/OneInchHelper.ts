@@ -8,6 +8,7 @@ import {
   blast,
   blastSepolia,
   bsc,
+  bscTestnet,
   kaia,
   mainnet,
   optimism,
@@ -60,6 +61,12 @@ export const STABLE_COINS: Record<SdkSupportedChainIds, { address: `0x${string}`
       decimals: 6n,
     }, // USDT
     [bsc.id]: {
+      address: '0x55d398326f99059ff775485246999027b3197955',
+      symbol: 'USDT',
+      decimals: 18n,
+    }, // USDT
+    // TODO
+    [bscTestnet.id]: {
       address: '0x55d398326f99059ff775485246999027b3197955',
       symbol: 'USDT',
       decimals: 18n,

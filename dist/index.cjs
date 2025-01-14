@@ -174,7 +174,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.2";
+var version = "1.0.5";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -2295,124 +2295,130 @@ const ZAP_ABI = [
 
 const SDK_CONTRACT_ADDRESSES = {
   ERC20: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x82E05B67B8766b78e8351717C956c151eBa5c72C",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.optimism.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.optimismSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.arbitrum.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.avalanche.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.polygon.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.bsc.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.bscTestnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.base.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.baseSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.sepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.blast.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.blastSepolia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.avalancheFuji.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.degen.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.cyberTestnet.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.kaia.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.cyber.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB",
+    [chains.ham.id]: "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB"
   },
   ERC1155: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0xAe50aa513586204FB78BFef1dFcbF1ac14BF43Ed",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.optimism.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.optimismSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.arbitrum.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.avalanche.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.polygon.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.bsc.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.bscTestnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.base.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.baseSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.sepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.blast.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.blastSepolia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.avalancheFuji.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.degen.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.cyberTestnet.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.kaia.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.cyber.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.ham.id]: "0x187E536C5404dD472476B9e4C716878d359a506A"
   },
   BOND: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0xd1c6508301B0567e3b8aFC45808704F5c0ea7FEf",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.optimism.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.optimismSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.arbitrum.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.avalanche.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.polygon.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.bsc.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.bscTestnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.base.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.baseSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.sepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.blast.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.blastSepolia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.avalancheFuji.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.degen.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.cyberTestnet.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.kaia.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.cyber.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B",
+    [chains.ham.id]: "0x912e3153a021b092ab85EA79B2a5d07b04B0073B"
   },
   ZAP: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x1e92B115C7195e798Fd4b071305853cE9f324a64",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.optimism.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.optimismSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.arbitrum.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.avalanche.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.polygon.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.bsc.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.bscTestnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.base.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.baseSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.sepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.blast.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.blastSepolia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.avalancheFuji.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.degen.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.cyberTestnet.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.kaia.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.cyber.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.ham.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537"
   },
   LOCKER: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x27d16F8373EB8932C558793ccaBd05B2e8D52f5A",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.optimism.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.optimismSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.arbitrum.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.avalanche.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.polygon.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.bsc.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.bscTestnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.base.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.baseSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.sepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.blast.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.blastSepolia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.avalancheFuji.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.degen.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.cyberTestnet.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.kaia.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.cyber.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867",
+    [chains.ham.id]: "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867"
   },
   MERKLE: {
-    [chains.mainnet.id]: "",
-    [chains.optimism.id]: "",
-    [chains.optimismSepolia.id]: "0x66586554f80cad4aCa263044996DbaD860f47267",
-    [chains.arbitrum.id]: "",
-    [chains.avalanche.id]: "",
-    [chains.polygon.id]: "",
-    [chains.bsc.id]: "",
-    [chains.base.id]: "",
-    [chains.baseSepolia.id]: "",
-    [chains.sepolia.id]: "",
-    [chains.blast.id]: "",
-    [chains.blastSepolia.id]: "",
-    [chains.avalancheFuji.id]: "",
-    [chains.degen.id]: "",
-    [chains.cyberTestnet.id]: "",
-    [chains.kaia.id]: "",
-    [chains.cyber.id]: "",
-    [chains.ham.id]: ""
+    [chains.mainnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.optimism.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.optimismSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.arbitrum.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.avalanche.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.polygon.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.bsc.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.bscTestnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.base.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.baseSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.sepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.blast.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.blastSepolia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.avalancheFuji.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.degen.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.cyberTestnet.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.kaia.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.cyber.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225",
+    [chains.ham.id]: "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225"
   },
   ONEINCH: {
     [chains.mainnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
@@ -2422,17 +2428,18 @@ const SDK_CONTRACT_ADDRESSES = {
     [chains.avalanche.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [chains.polygon.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [chains.bsc.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.bscTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [chains.base.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [chains.kaia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
-    [chains.sepolia.id]: "0x",
-    [chains.baseSepolia.id]: "0x",
-    [chains.blast.id]: "0x",
-    [chains.blastSepolia.id]: "0x",
-    [chains.avalancheFuji.id]: "0x",
-    [chains.degen.id]: "0x",
-    [chains.cyberTestnet.id]: "0x",
-    [chains.cyber.id]: "0x",
-    [chains.ham.id]: "0x"
+    [chains.sepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [chains.baseSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.blast.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.blastSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.avalancheFuji.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [chains.degen.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.cyberTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.cyber.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
 };
 function getMintClubContractAddress(contractName, chainId) {
@@ -2535,6 +2542,15 @@ const CHAINS = [
     color: "#F0B90B",
     openseaSlug: "bsc",
     enabled: viem.isAddress(getMintClubContractAddress("BOND", chains.bsc.id)),
+    chain: chains.bsc
+  },
+  {
+    id: chains.bscTestnet.id,
+    name: "BNBChainTestnet",
+    icon: "https://mint.club/assets/networks/bnb@2x.png",
+    color: "#F0B90B",
+    openseaSlug: "bscTestnet",
+    enabled: viem.isAddress(getMintClubContractAddress("BOND", chains.bscTestnet.id)),
     chain: chains.bsc
   },
   {
@@ -4501,6 +4517,16 @@ const HAM_TOKENS = {
   // },
 };
 
+const BSC_TESTNET_TOKENS = {
+  "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd": {
+    name: "Wrapped BNB",
+    symbol: "WBNB",
+    address: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+    decimals: 18,
+    image: "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png"
+  }
+};
+
 const COINGECKO_NETWORK_IDS = {
   [chains.mainnet.id]: "ethereum",
   [chains.optimism.id]: "optimistic-ethereum",
@@ -4564,6 +4590,13 @@ const WRAPPED_NATIVE_TOKENS = {
   [chains.bsc.id]: {
     image: "https://mint.club/assets/tokens/bnb.png",
     tokenAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+    nativeSymbol: "BNB",
+    oneInchSymbol: "USDT",
+    decimals: 18
+  },
+  [chains.bscTestnet.id]: {
+    image: "https://mint.club/assets/tokens/bnb.png",
+    tokenAddress: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
     nativeSymbol: "BNB",
     oneInchSymbol: "USDT",
     decimals: 18
@@ -4655,6 +4688,7 @@ const TOKENS = {
   [chains.avalanche.id]: AVALANCHE_TOKENS,
   [chains.polygon.id]: POLYGON_TOKENS,
   [chains.bsc.id]: BSC_TOKENS,
+  [chains.bscTestnet.id]: BSC_TESTNET_TOKENS,
   [chains.base.id]: BASE_TOKENS,
   [chains.blast.id]: BLAST_TOKENS,
   [chains.blastSepolia.id]: BLAST_SEPOLIA_TOKENS,
@@ -5550,6 +5584,13 @@ const STABLE_COINS = {
     decimals: 18n
   },
   // USDT
+  // TODO
+  [chains.bscTestnet.id]: {
+    address: "0x55d398326f99059ff775485246999027b3197955",
+    symbol: "USDT",
+    decimals: 18n
+  },
+  // USDT
   [chains.base.id]: {
     address: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",
     symbol: "USDBC",
@@ -5615,7 +5656,7 @@ class Token {
     this.tokenType = tokenType;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId === chains.optimismSepolia.id ? chains.optimism.id : chainId);
+    this.oneinch = new OneInch(chainId === chains.bscTestnet.id ? chains.bsc.id : chainId);
     this.airdropHelper = new Airdrop(this.chainId);
   }
   async getConnectedWalletAddress() {
@@ -6419,6 +6460,7 @@ const supportedChainsMap = {
   sepolia: chains.sepolia.id,
   basesepolia: chains.baseSepolia.id,
   bnbchain: chains.bsc.id,
+  bnbchaintestnet: chains.bscTestnet.id,
   polygon: chains.polygon.id,
   arbitrum: chains.arbitrum.id,
   kaia: chains.kaia.id,

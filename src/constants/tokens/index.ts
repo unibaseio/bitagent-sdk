@@ -17,6 +17,7 @@ import {
   cyber,
   cyberTestnet,
   optimismSepolia,
+  bscTestnet,
 } from 'viem/chains';
 import { SdkSupportedChainIds } from '../contracts';
 import { ARBITRUM_TOKENS } from './arbitrum';
@@ -36,6 +37,7 @@ import { CYBER_TESTNET_TOKENS } from './cyber-testnet';
 import { CYBER_TOKENS } from './cyber';
 import { KAIA_TOKENS } from './kaia';
 import { HAM_TOKENS } from './ham';
+import { BSC_TESTNET_TOKENS } from './bsc-testnet';
 
 // Ref: https://api.coingecko.com/api/v3/asset_platforms
 export const COINGECKO_NETWORK_IDS = {
@@ -114,6 +116,13 @@ export const WRAPPED_NATIVE_TOKENS: Record<SdkSupportedChainIds, WrappedToken> =
   [bsc.id]: {
     image: 'https://mint.club/assets/tokens/bnb.png',
     tokenAddress: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    nativeSymbol: 'BNB',
+    oneInchSymbol: 'USDT',
+    decimals: 18,
+  },
+  [bscTestnet.id]: {
+    image: 'https://mint.club/assets/tokens/bnb.png',
+    tokenAddress: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
     nativeSymbol: 'BNB',
     oneInchSymbol: 'USDT',
     decimals: 18,
@@ -207,6 +216,7 @@ export const TOKENS: Record<SdkSupportedChainIds, Record<`0x${string}`, BaseToke
   [avalanche.id]: AVALANCHE_TOKENS,
   [polygon.id]: POLYGON_TOKENS,
   [bsc.id]: BSC_TOKENS,
+  [bscTestnet.id]: BSC_TESTNET_TOKENS,
   [base.id]: BASE_TOKENS,
   [blast.id]: BLAST_TOKENS,
   [blastSepolia.id]: BLAST_SEPOLIA_TOKENS,

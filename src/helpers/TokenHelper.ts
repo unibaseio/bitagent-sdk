@@ -27,7 +27,7 @@ import { Client } from './ClientHelper';
 import { Ipfs } from './IpfsHelper';
 import { OneInch } from './OneInchHelper';
 import { isFalse } from '../utils/logic';
-import { optimismSepolia, optimism } from 'viem/chains';
+import { bsc, bscTestnet } from 'viem/chains';
 
 export class Token<T extends TokenType> {
   private tokenAddress: `0x${string}`;
@@ -55,7 +55,7 @@ export class Token<T extends TokenType> {
     this.tokenType = tokenType as T;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId === optimismSepolia.id ? optimism.id : chainId);
+    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId);
     this.airdropHelper = new Airdrop(this.chainId);
   }
 
