@@ -11638,7 +11638,7 @@ declare function generateCreateArgs(params: CreateTokenParams & {
     };
 };
 
-declare function computeCreate2Address(chainId: number, tokenType: TokenType, tokenSymbol: string): `0x${string}`;
+declare function computeCreate2Address(chainId: number, tokenType: TokenType, tokenSymbol: string, version: Version): `0x${string}`;
 declare function createRandomAddress(): `0x${string}`;
 
 declare const enum CurveEnum {

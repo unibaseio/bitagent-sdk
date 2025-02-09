@@ -47,7 +47,7 @@ export class Token<T extends TokenType> {
     if (isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
     } else {
-      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress);
+      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, version);
       this.symbol = symbolOrAddress;
     }
 
@@ -79,7 +79,7 @@ export class Token<T extends TokenType> {
       return erc1155Contract.network(this.chainId, this.version).read({
         tokenAddress: this.tokenAddress,
         functionName: 'isApprovedForAll',
-        args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId)],
+        args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId, this.version)],
       });
     }
 
@@ -91,7 +91,7 @@ export class Token<T extends TokenType> {
     const allowance = await erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: tokenToApprove,
       functionName: 'allowance',
-      args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId)],
+      args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId, this.version)],
     });
 
     return allowance >= amountToSpend;
@@ -104,7 +104,7 @@ export class Token<T extends TokenType> {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'isApprovedForAll',
-        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId)],
+        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId, this.version)],
       });
     } else {
       let amountToSpend = maxUint256;
@@ -117,7 +117,7 @@ export class Token<T extends TokenType> {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'allowance',
-        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId)],
+        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId, this.version)],
       });
 
       return allowance >= amountToSpend;
@@ -143,7 +143,7 @@ export class Token<T extends TokenType> {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'approve',
-        args: [getMintClubContractAddress(contract, this.chainId), amountToSpend],
+        args: [getMintClubContractAddress(contract, this.chainId, this.version), amountToSpend],
       });
     }
   }
@@ -176,7 +176,7 @@ export class Token<T extends TokenType> {
         onSuccess: onAllowanceSuccess,
         tokenAddress: tokenToCheck,
         functionName: 'approve',
-        args: [getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId), amountToSpend],
+        args: [getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId, this.version), amountToSpend],
       });
     }
   }

@@ -174,7 +174,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "0.2.0";
+var version = "0.2.1";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -5169,11 +5169,12 @@ class Bond {
   }
 }
 
-function computeCreate2Address(chainId, tokenType, tokenSymbol) {
-  const bondAddress = getMintClubContractAddress("BOND", chainId);
+function computeCreate2Address(chainId, tokenType, tokenSymbol, version) {
+  const bondAddress = getMintClubContractAddress("BOND", chainId, version);
   const tokenImplementation = getMintClubContractAddress(
     tokenType === "ERC20" ? "ERC20" : "ERC1155",
-    chainId
+    chainId,
+    version
   );
   const hexedSymbol = viem.stringToHex(tokenSymbol);
   const packed = `0x${[bondAddress, hexedSymbol].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
@@ -5811,7 +5812,7 @@ class Token {
     if (viem.isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
     } else {
-      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress);
+      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, version);
       this.symbol = symbolOrAddress;
     }
     this.chain = getChain(chainId);
@@ -5838,7 +5839,7 @@ class Token {
       return erc1155Contract.network(this.chainId, this.version).read({
         tokenAddress: this.tokenAddress,
         functionName: "isApprovedForAll",
-        args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId)]
+        args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId, this.version)]
       });
     }
     let amountToSpend = viem.maxUint256;
@@ -5848,7 +5849,7 @@ class Token {
     const allowance = await erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: tokenToApprove,
       functionName: "allowance",
-      args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId)]
+      args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId, this.version)]
     });
     return allowance >= amountToSpend;
   }
@@ -5859,7 +5860,7 @@ class Token {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "isApprovedForAll",
-        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId)]
+        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId, this.version)]
       });
     } else {
       let amountToSpend = viem.maxUint256;
@@ -5870,7 +5871,7 @@ class Token {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "allowance",
-        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId)]
+        args: [connectedAddress, getMintClubContractAddress(contract, this.chainId, this.version)]
       });
       return allowance >= amountToSpend;
     }
@@ -5892,7 +5893,7 @@ class Token {
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "approve",
-        args: [getMintClubContractAddress(contract, this.chainId), amountToSpend]
+        args: [getMintClubContractAddress(contract, this.chainId, this.version), amountToSpend]
       });
     }
   }
@@ -5921,7 +5922,7 @@ class Token {
         onSuccess: onAllowanceSuccess,
         tokenAddress: tokenToCheck,
         functionName: "approve",
-        args: [getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId), amountToSpend]
+        args: [getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId, this.version), amountToSpend]
       });
     }
   }
