@@ -10,6 +10,7 @@ import {
   ONEINCH_ABI,
   ZAP_ABI,
   chainStringToId,
+  Version,
 } from '../exports';
 import { AbiType, SupportedAbiType } from '../types/abi.types';
 import { GenericContractLogic } from './GenericContractLogic';
@@ -45,7 +46,7 @@ export class GenericContract<T extends ContractNames> {
     }
   }
 
-  public network(id: SdkSupportedChainIds | LowerCaseChainNames) {
+  public network(id: SdkSupportedChainIds | LowerCaseChainNames, version: Version) {
     let chainId: SdkSupportedChainIds;
 
     if (typeof id === 'string') {
@@ -58,6 +59,7 @@ export class GenericContract<T extends ContractNames> {
       chainId,
       type: this.contractType,
       abi: this.abi,
+      version
     }) as unknown as GenericContractLogic<AbiType<T>, T>;
   }
 }

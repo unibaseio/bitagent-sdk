@@ -1,10 +1,11 @@
-import { SdkSupportedChainIds, TokenType } from '../exports';
+import { SdkSupportedChainIds, TokenType, Version } from '../exports';
 import { WriteTransactionCallbacks } from './transactions.types';
 
 export type TokenHelperConstructorParams = {
   symbolOrAddress: string;
   chainId: SdkSupportedChainIds;
   tokenType: TokenType;
+  version: Version
 };
 
 export type TokenCreateAirdropParams = {

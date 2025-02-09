@@ -147,14 +147,14 @@ function getSubscriptNumber(params) {
   return ["0.0", getSubscriptCharacter(leadingZeros), valueAfterZeros].join("");
 }
 
-var name = "@unibase/bitagent";
+var name = "@bitagent/sdk";
 var files = [
 	"./dist/**/*",
 	"./src/**/*"
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.6";
+var version = "0.2.0";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -2422,8 +2422,161 @@ const SDK_CONTRACT_ADDRESSES = {
     [ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
 };
-function getMintClubContractAddress(contractName, chainId) {
-  let contractAddress = SDK_CONTRACT_ADDRESSES[contractName][chainId];
+const V2_SDK_CONTRACT_ADDRESSES = {
+  ERC20: {
+    [mainnet.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [optimism.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [optimismSepolia.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [arbitrum.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [avalanche.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [polygon.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [bsc.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [bscTestnet.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [base.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [baseSepolia.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [sepolia.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [blast.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [blastSepolia.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [avalancheFuji.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [degen.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [cyberTestnet.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [kaia.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [cyber.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a",
+    [ham.id]: "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a"
+  },
+  ERC1155: {
+    [mainnet.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [optimism.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [optimismSepolia.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [arbitrum.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [avalanche.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [polygon.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [bsc.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [bscTestnet.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [base.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [baseSepolia.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [sepolia.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [blast.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [blastSepolia.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [avalancheFuji.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [degen.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [cyberTestnet.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [kaia.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [cyber.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3",
+    [ham.id]: "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3"
+  },
+  BOND: {
+    [mainnet.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [optimism.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [optimismSepolia.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [arbitrum.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [avalanche.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [polygon.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [bsc.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [bscTestnet.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [base.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [baseSepolia.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [sepolia.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [blast.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [blastSepolia.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [avalancheFuji.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [degen.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [cyberTestnet.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [kaia.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [cyber.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868",
+    [ham.id]: "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868"
+  },
+  ZAP: {
+    [mainnet.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [optimism.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [optimismSepolia.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [arbitrum.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [avalanche.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [polygon.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [bsc.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [bscTestnet.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [base.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [baseSepolia.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [sepolia.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [blast.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [blastSepolia.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [avalancheFuji.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [degen.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [cyberTestnet.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [kaia.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [cyber.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06",
+    [ham.id]: "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06"
+  },
+  LOCKER: {
+    [mainnet.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [optimism.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [optimismSepolia.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [arbitrum.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [avalanche.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [polygon.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [bsc.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [bscTestnet.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [base.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [baseSepolia.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [sepolia.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [blast.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [blastSepolia.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [avalancheFuji.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [degen.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [cyberTestnet.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [kaia.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [cyber.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9",
+    [ham.id]: "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9"
+  },
+  MERKLE: {
+    [mainnet.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [optimism.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [optimismSepolia.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [arbitrum.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [avalanche.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [polygon.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [bsc.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [bscTestnet.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [base.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [baseSepolia.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [sepolia.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [blast.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [blastSepolia.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [avalancheFuji.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [degen.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [cyberTestnet.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [kaia.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [cyber.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604",
+    [ham.id]: "0x3e1C761024e1f93959F409641E8e0AbC63333604"
+  },
+  ONEINCH: {
+    [mainnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [optimism.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [optimismSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [arbitrum.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [avalanche.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [polygon.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [bsc.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [bscTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [base.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [kaia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [sepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [baseSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [blast.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [blastSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [avalancheFuji.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x",
+    [degen.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [cyberTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [cyber.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
+  }
+};
+const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
+  "0.1.0": SDK_CONTRACT_ADDRESSES,
+  "0.2.0": V2_SDK_CONTRACT_ADDRESSES
+};
+function getMintClubContractAddress(contractName, chainId, version = "0.1.0") {
+  let contractAddress = VERSION_TO_SDK_CONTRACT_ADDRESSES[version][contractName][chainId];
   if (process.env.NODE_ENV === "hardhat") {
     contractAddress = global.mcv2Hardhat?.[contractName]?.[chainId];
   }
@@ -4831,13 +4984,15 @@ class GenericContractLogic {
   chainId;
   clientHelper;
   chain;
+  version;
   constructor(params) {
-    const { chainId, type, abi } = params;
+    const { chainId, type, abi, version } = params;
     this.contractType = type;
     this.abi = abi;
     this.chainId = chainId;
     this.chain = getChain(chainId);
     this.clientHelper = new Client();
+    this.version = version;
   }
   read(params) {
     const { functionName } = params;
@@ -4846,7 +5001,7 @@ class GenericContractLogic {
     if ("tokenAddress" in params) {
       address = params.tokenAddress;
     } else {
-      address = getMintClubContractAddress(this.contractType, this.chainId);
+      address = getMintClubContractAddress(this.contractType, this.chainId, this.version);
     }
     const publicClient = this.clientHelper._getPublicClient(this.chainId);
     return publicClient.readContract({
@@ -4864,7 +5019,7 @@ class GenericContractLogic {
     if ("tokenAddress" in params) {
       address = params.tokenAddress;
     } else {
-      address = getMintClubContractAddress(this.contractType, this.chainId);
+      address = getMintClubContractAddress(this.contractType, this.chainId, this.version);
     }
     try {
       const walletClient = this.clientHelper.getWalletClient();
@@ -4942,7 +5097,7 @@ class GenericContract {
       throw new Error(`Contract type ${type} not supported`);
     }
   }
-  network(id) {
+  network(id, version) {
     let chainId;
     if (typeof id === "string") {
       chainId = chainStringToId(id);
@@ -4952,7 +5107,8 @@ class GenericContract {
     return new GenericContractLogic({
       chainId,
       type: this.contractType,
-      abi: this.abi
+      abi: this.abi,
+      version
     });
   }
 }
@@ -4967,24 +5123,26 @@ const oneInchContract = new GenericContract("ONEINCH");
 
 class Bond {
   chainId;
-  constructor(chainId) {
+  version;
+  constructor(chainId, version) {
     this.chainId = chainId;
+    this.version = version;
   }
   getCreationFee() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "creationFee"
     });
   }
   getTokensByReserveToken(params) {
     const { reserveToken, start = 0, end = 1e3 } = params;
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getTokensByReserveToken",
       args: [reserveToken, BigInt(start), BigInt(end)]
     });
   }
   getTokensByCreator(params) {
     const { creator, start = 0, end = 1e3 } = params;
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getTokensByCreator",
       args: [creator, BigInt(start), BigInt(end)]
     });
@@ -5316,11 +5474,13 @@ const api = baseFetcher.extend({
 const EMPTY_ROOT = "0x0000000000000000000000000000000000000000000000000000000000000000";
 class Airdrop {
   chainId;
-  constructor(chainId) {
+  version;
+  constructor(chainId, version) {
     this.chainId = chainId;
+    this.version = version;
   }
   getTotalAirdropCount() {
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "distributionCount"
     });
   }
@@ -5338,7 +5498,7 @@ class Airdrop {
       merkleRoot,
       title,
       ipfsCID
-    ] = await airdropContract.network(this.chainId).read({
+    ] = await airdropContract.network(this.chainId, this.version).read({
       functionName: "distributions",
       args: [BigInt(airdropId)]
     });
@@ -5358,39 +5518,39 @@ class Airdrop {
     };
   }
   getAmountClaimed(airdropId) {
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "getAmountClaimed",
       args: [BigInt(airdropId)]
     });
   }
   getAmountLeft(airdropId) {
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "getAmountLeft",
       args: [BigInt(airdropId)]
     });
   }
   getAirdropIdsByOwner(params) {
     const { owner, start = 0, end = 1e3 } = params;
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "getDistributionIdsByOwner",
       args: [owner, BigInt(start), BigInt(end)]
     });
   }
   getAirdropIdsByToken(params) {
     const { token, start = 0, end = 1e3 } = params;
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "getDistributionIdsByToken",
       args: [token, BigInt(start), BigInt(end)]
     });
   }
   getIsClaimed(airdropId, account) {
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "isClaimed",
       args: [BigInt(airdropId), account]
     });
   }
   getIsWhitelistOnly(airdropId) {
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "isWhitelistOnly",
       args: [BigInt(airdropId)]
     });
@@ -5405,14 +5565,14 @@ class Airdrop {
   async getIsWhitelisted(airdropId, account) {
     const { merkleRoot } = await this.getAirdropById(airdropId);
     if (merkleRoot === EMPTY_ROOT) return Promise.resolve(true);
-    return airdropContract.network(this.chainId).read({
+    return airdropContract.network(this.chainId, this.version).read({
       functionName: "isWhitelisted",
       args: [BigInt(airdropId), account, await this.getMerkleProof(airdropId)]
     });
   }
   async claimAirdrop(params) {
     const { airdropId } = params;
-    return airdropContract.network(this.chainId).write({
+    return airdropContract.network(this.chainId, this.version).write({
       ...params,
       functionName: "claim",
       args: [BigInt(airdropId), await this.getMerkleProof(airdropId)]
@@ -5420,7 +5580,7 @@ class Airdrop {
   }
   createAirdrop(params) {
     const { token, isERC20, amountPerClaim, walletCount, startTime, endTime, merkleRoot, title, ipfsCID } = params;
-    return airdropContract.network(this.chainId).write({
+    return airdropContract.network(this.chainId, this.version).write({
       ...params,
       functionName: "createDistribution",
       args: [token, isERC20, amountPerClaim, walletCount, startTime, endTime, merkleRoot, title, ipfsCID]
@@ -5428,7 +5588,7 @@ class Airdrop {
   }
   cancelAirdrop(params) {
     const { airdropId } = params;
-    return airdropContract.network(this.chainId).write({
+    return airdropContract.network(this.chainId, this.version).write({
       ...params,
       functionName: "refund",
       args: [BigInt(airdropId)]
@@ -5590,8 +5750,10 @@ const STABLE_COINS = {
 };
 class OneInch {
   chainId;
-  constructor(chainId) {
+  version;
+  constructor(chainId, version) {
     this.chainId = chainId;
+    this.version = version;
   }
   async getUsdRate({ tokenAddress, tokenDecimals }) {
     if (!isAddress(STABLE_COINS[this.chainId].address) || STABLE_COINS[this.chainId].address === "0x") {
@@ -5599,7 +5761,7 @@ class OneInch {
     }
     const isSameToken = isAddress(tokenAddress) && getAddress(tokenAddress) === getAddress(STABLE_COINS[this.chainId].address);
     if (isSameToken) return { rate: 1, stableCoin: STABLE_COINS[this.chainId] };
-    const rate = await oneInchContract.network(this.chainId).read({
+    const rate = await oneInchContract.network(this.chainId, this.version).read({
       functionName: "getRate",
       args: [tokenAddress, STABLE_COINS[this.chainId].address, false]
     });
@@ -5622,9 +5784,10 @@ class Token {
   symbol;
   tokenType;
   chain;
+  version;
   chainId;
   constructor(params) {
-    const { symbolOrAddress, chainId, tokenType } = params;
+    const { symbolOrAddress, chainId, tokenType, version } = params;
     if (isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
     } else {
@@ -5633,11 +5796,12 @@ class Token {
     }
     this.chain = getChain(chainId);
     this.chainId = chainId;
+    this.version = version;
     this.tokenType = tokenType;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId);
-    this.airdropHelper = new Airdrop(this.chainId);
+    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId, version);
+    this.airdropHelper = new Airdrop(this.chainId, version);
   }
   async getConnectedWalletAddress() {
     const connectedAddress = await this.clientHelper.account();
@@ -5651,7 +5815,7 @@ class Token {
     const { tradeType, walletAddress, isZap } = params;
     const tokenToApprove = await this.tokenToApprove(tradeType);
     if (this.tokenType === "ERC1155" && tradeType === "sell") {
-      return erc1155Contract.network(this.chainId).read({
+      return erc1155Contract.network(this.chainId, this.version).read({
         tokenAddress: this.tokenAddress,
         functionName: "isApprovedForAll",
         args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId)]
@@ -5661,7 +5825,7 @@ class Token {
     if ("amountToSpend" in params && params?.amountToSpend !== void 0) {
       amountToSpend = params.amountToSpend;
     }
-    const allowance = await erc20Contract.network(this.chainId).read({
+    const allowance = await erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: tokenToApprove,
       functionName: "allowance",
       args: [walletAddress, getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId)]
@@ -5671,7 +5835,7 @@ class Token {
   async contractIsApproved(params, contract) {
     const connectedAddress = await this.getConnectedWalletAddress();
     if (this.tokenType === "ERC1155") {
-      return erc1155Contract.network(this.chainId).read({
+      return erc1155Contract.network(this.chainId, this.version).read({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "isApprovedForAll",
@@ -5682,7 +5846,7 @@ class Token {
       if ("allowanceAmount" in params && params?.allowanceAmount !== void 0) {
         amountToSpend = params.allowanceAmount;
       }
-      const allowance = await erc20Contract.network(this.chainId).read({
+      const allowance = await erc20Contract.network(this.chainId, this.version).read({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "allowance",
@@ -5693,18 +5857,18 @@ class Token {
   }
   approveContract(params, contract) {
     if (this.tokenType === "ERC1155") {
-      return erc1155Contract.network(this.chainId).write({
+      return erc1155Contract.network(this.chainId, this.version).write({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "setApprovalForAll",
-        args: [getMintClubContractAddress(contract, this.chainId), true]
+        args: [getMintClubContractAddress(contract, this.chainId, this.version), true]
       });
     } else {
       let amountToSpend = maxUint256;
       if ("allowanceAmount" in params && params?.allowanceAmount !== void 0) {
         amountToSpend = params.allowanceAmount;
       }
-      return erc20Contract.network(this.chainId).write({
+      return erc20Contract.network(this.chainId, this.version).write({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: "approve",
@@ -5716,21 +5880,21 @@ class Token {
     const { isZap, tradeType, onAllowanceSignatureRequest, onAllowanceSigned, onAllowanceSuccess } = params;
     const tokenToCheck = await this.tokenToApprove(tradeType);
     if (this.tokenType === "ERC1155" && tradeType === "sell") {
-      return erc1155Contract.network(this.chainId).write({
+      return erc1155Contract.network(this.chainId, this.version).write({
         ...params,
         onSignatureRequest: onAllowanceSignatureRequest,
         onSigned: onAllowanceSigned,
         onSuccess: onAllowanceSuccess,
         tokenAddress: this.tokenAddress,
         functionName: "setApprovalForAll",
-        args: [getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId), true]
+        args: [getMintClubContractAddress(isZap ? "ZAP" : "BOND", this.chainId, this.version), true]
       });
     } else {
       let amountToSpend = maxUint256;
       if ("allowanceAmount" in params && params?.allowanceAmount !== void 0) {
         amountToSpend = params.allowanceAmount;
       }
-      return erc20Contract.network(this.chainId).write({
+      return erc20Contract.network(this.chainId, this.version).write({
         ...params,
         onSignatureRequest: onAllowanceSignatureRequest,
         onSigned: onAllowanceSigned,
@@ -5742,7 +5906,7 @@ class Token {
     }
   }
   getCreationFee() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "creationFee"
     });
   }
@@ -5752,7 +5916,7 @@ class Token {
     return reserveIsWrapped;
   }
   exists() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "exists",
       args: [this.tokenAddress]
     });
@@ -5760,9 +5924,9 @@ class Token {
   async getReserveToken() {
     const { reserveToken } = await this.getTokenBond();
     const [name, symbol, decimals] = await Promise.all([
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: "name" }),
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: "symbol" }),
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: "decimals" })
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: "name" }),
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: "symbol" }),
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: "decimals" })
     ]);
     return {
       address: reserveToken,
@@ -5788,13 +5952,13 @@ class Token {
     return { usdRate: rate * amount, stableCoin };
   }
   getDetail() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getDetail",
       args: [this.tokenAddress]
     });
   }
   async getTokenBond() {
-    const [creator, mintRoyalty, burnRoyalty, createdAt, reserveToken, reserveBalance] = await bondContract.network(this.chainId).read({
+    const [creator, mintRoyalty, burnRoyalty, createdAt, reserveToken, reserveBalance] = await bondContract.network(this.chainId, this.version).read({
       functionName: "tokenBond",
       args: [this.tokenAddress]
     });
@@ -5808,31 +5972,31 @@ class Token {
     };
   }
   getSteps() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getSteps",
       args: [this.tokenAddress]
     });
   }
   getMaxSupply() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "maxSupply",
       args: [this.tokenAddress]
     });
   }
   getPriceForNextMint() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "priceForNextMint",
       args: [this.tokenAddress]
     });
   }
   getSellEstimation(amount) {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getRefundForTokens",
       args: [this.tokenAddress, amount]
     });
   }
   getBuyEstimation(amount) {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: "getReserveForToken",
       args: [this.tokenAddress, amount]
     });
@@ -5867,7 +6031,7 @@ class Token {
           amountToSpend: maxReserveAmount
         });
       }
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "mint",
         args: [this.tokenAddress, amount, maxReserveAmount, recipient || connectedAddress]
@@ -5894,7 +6058,7 @@ class Token {
           amountToSpend: amount
         });
       }
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "burn",
         args: [this.tokenAddress, amount, minReserveAmount, recipient || connectedAddress]
@@ -5909,7 +6073,7 @@ class Token {
       const connectedAddress = await this.getConnectedWalletAddress();
       const [estimatedOutcome] = await this.getBuyEstimation(amount);
       const maxReserveAmount = estimatedOutcome + estimatedOutcome * BigInt(slippage * 100) / 10000n;
-      return zapContract.network(this.chainId).write({
+      return zapContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "mintWithEth",
         args: [this.tokenAddress, amount, recipient || connectedAddress],
@@ -5939,7 +6103,7 @@ class Token {
           isZap: true
         });
       }
-      return zapContract.network(this.chainId).write({
+      return zapContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "burnToEth",
         args: [this.tokenAddress, amount, minReserveAmount, recipient || connectedAddress]
@@ -5952,7 +6116,7 @@ class Token {
     const { amount, recipient, onError } = params;
     try {
       if (this.tokenType === "ERC20") {
-        return erc20Contract.network(this.chainId).write({
+        return erc20Contract.network(this.chainId, this.version).write({
           ...params,
           tokenAddress: this.getTokenAddress(),
           functionName: "transfer",
@@ -5960,7 +6124,7 @@ class Token {
         });
       } else {
         const connectedAddress = await this.getConnectedWalletAddress();
-        return erc1155Contract.network(this.chainId).write({
+        return erc1155Contract.network(this.chainId, this.version).write({
           ...params,
           tokenAddress: this.getTokenAddress(),
           functionName: "safeTransferFrom",
@@ -5980,7 +6144,7 @@ class Token {
     const walletCount = wallets.length;
     let decimals = 0;
     if (this.tokenType === "ERC20") {
-      decimals = await erc20Contract.network(this.chainId).read({
+      decimals = await erc20Contract.network(this.chainId, this.version).read({
         tokenAddress: this.getTokenAddress(),
         functionName: "decimals"
       });
@@ -6034,7 +6198,7 @@ class ERC1155 extends Token {
     });
   }
   getBalanceOf(walletAddress) {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "balanceOf",
       args: [walletAddress, 0n]
@@ -6042,65 +6206,65 @@ class ERC1155 extends Token {
   }
   getBalanceOfBatch(walletAddresses) {
     const ids = Array(walletAddresses.length).fill(0n);
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "balanceOfBatch",
       args: [walletAddresses, ids]
     });
   }
   getBondAddress() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "bond"
     });
   }
   getContractURI() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "contractURI"
     });
   }
   getDecimals() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "decimals"
     });
   }
   getIsApprovedForAll(params) {
     const { owner, spender } = params;
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "isApprovedForAll",
       args: [owner, spender]
     });
   }
   getName() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "name"
     });
   }
   getSupportsInterface(interfaceId) {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "supportsInterface",
       args: [interfaceId]
     });
   }
   getSymbol() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "symbol"
     });
   }
   getTotalSupply() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "totalSupply"
     });
   }
   getMetadataUri() {
-    return erc1155Contract.network(this.chainId).read({
+    return erc1155Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "uri",
       args: [0n]
@@ -6119,7 +6283,7 @@ class ERC1155 extends Token {
       if (metadataUrl.startsWith("ipfs://")) {
         this.ipfsHelper.validateIpfsHash(metadataUrl);
       }
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "createMultiToken",
         args: [Object.assign(args.tokenParams, { uri: metadataUrl }), args.bondParams],
@@ -6132,7 +6296,7 @@ class ERC1155 extends Token {
   }
   async approve(params) {
     const { spender, approved } = params;
-    return erc1155Contract.network(this.chainId).write({
+    return erc1155Contract.network(this.chainId, this.version).write({
       ...params,
       tokenAddress: this.getTokenAddress(),
       functionName: "setApprovalForAll",
@@ -6150,52 +6314,52 @@ class ERC20 extends Token {
   }
   getAllowance(params) {
     const { owner, spender } = params;
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "allowance",
       args: [owner, spender]
     });
   }
   getBalanceOf(walletAddress) {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "balanceOf",
       args: [walletAddress]
     });
   }
   getBondAddress() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "bond"
     });
   }
   getDecimals() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "decimals"
     });
   }
   getName() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "name"
     });
   }
   getSymbol() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "symbol"
     });
   }
   getTotalSupply() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: "totalSupply"
     });
   }
   async approve(params) {
     const { spender, amount } = params;
-    return erc20Contract.network(this.chainId).write({
+    return erc20Contract.network(this.chainId, this.version).write({
       ...params,
       tokenAddress: this.getTokenAddress(),
       functionName: "approve",
@@ -6205,7 +6369,7 @@ class ERC20 extends Token {
   async create(params) {
     try {
       const { args, fee } = await this.checkAndPrepareCreateArgs(params);
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: "createToken",
         args: [args.tokenParams, args.bondParams],
@@ -6219,30 +6383,32 @@ class ERC20 extends Token {
 
 class Lockup {
   chainId;
-  constructor(chainId) {
+  version;
+  constructor(chainId, version) {
     this.chainId = chainId;
+    this.version = version;
   }
   getTotalLockUpCount() {
-    return lockupContract.network(this.chainId).read({
+    return lockupContract.network(this.chainId, this.version).read({
       functionName: "lockUpCount"
     });
   }
   getLockUpIdsByReceiver(params) {
     const { receiver, start = 0, end = 1e3 } = params;
-    return lockupContract.network(this.chainId).read({
+    return lockupContract.network(this.chainId, this.version).read({
       functionName: "getLockUpIdsByReceiver",
       args: [receiver, BigInt(start), BigInt(end)]
     });
   }
   getLockUpIdsByToken(params) {
     const { token, start = 0, end = 1e3 } = params;
-    return lockupContract.network(this.chainId).read({
+    return lockupContract.network(this.chainId, this.version).read({
       functionName: "getLockUpIdsByToken",
       args: [token, BigInt(start), BigInt(end)]
     });
   }
   async getLockUpById(lockUpId) {
-    const [token, isERC20, unlockTime, unlocked, amount, receiver, title] = await lockupContract.network(this.chainId).read({
+    const [token, isERC20, unlockTime, unlocked, amount, receiver, title] = await lockupContract.network(this.chainId, this.version).read({
       functionName: "lockUps",
       args: [BigInt(lockUpId)]
     });
@@ -6258,7 +6424,7 @@ class Lockup {
   }
   createLockUp(params) {
     const { token, isERC20, amount, unlockTime, receiver, title } = params;
-    return lockupContract.network(this.chainId).write({
+    return lockupContract.network(this.chainId, this.version).write({
       ...params,
       functionName: "createLockUp",
       args: [token, isERC20, amount, unlockTime, receiver, title]
@@ -6266,7 +6432,7 @@ class Lockup {
   }
   unlock(params) {
     const { lockUpId } = params;
-    return lockupContract.network(this.chainId).write({
+    return lockupContract.network(this.chainId, this.version).write({
       ...params,
       functionName: "unlock",
       args: [BigInt(lockUpId)]
@@ -6290,16 +6456,16 @@ class MintClubSDK {
   wallet = new Client();
   ipfs = new Ipfs();
   utils = new Utils();
-  network(id) {
+  network(id, version = "0.1.0") {
     let chainId;
     if (typeof id === "string") {
       chainId = chainStringToId(id);
     } else {
       chainId = id;
     }
-    return this.withClientHelper(this.wallet, chainId);
+    return this.withClientHelper(this.wallet, chainId, version);
   }
-  withClientHelper(clientHelper, chainId) {
+  withClientHelper(clientHelper, chainId, version) {
     return Object.assign(clientHelper, {
       getPublicClient() {
         return clientHelper._getPublicClient(chainId);
@@ -6307,18 +6473,20 @@ class MintClubSDK {
       token: (symbolOrAddress) => {
         return new ERC20({
           symbolOrAddress,
-          chainId
+          chainId,
+          version
         });
       },
       nft: (symbolOrAddress) => {
         return new ERC1155({
           symbolOrAddress,
-          chainId
+          chainId,
+          version
         });
       },
-      airdrop: new Airdrop(chainId),
-      lockup: new Lockup(chainId),
-      bond: new Bond(chainId)
+      airdrop: new Airdrop(chainId, version),
+      lockup: new Lockup(chainId, version),
+      bond: new Bond(chainId, version)
     });
   }
   withPublicClient(publicClient) {

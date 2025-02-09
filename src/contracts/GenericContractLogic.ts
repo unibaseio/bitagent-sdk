@@ -17,6 +17,7 @@ import {
   ContractNames,
   DEFAULT_RANK_OPTIONS,
   SdkSupportedChainIds,
+  Version,
   chainRPCFallbacks,
   getChain,
   getMintClubContractAddress,
@@ -28,30 +29,35 @@ import { GenericWriteParams, TokenContractReadWriteArgs } from '../types/transac
 type GenericLogicConstructorParams<
   A extends SupportedAbiType = SupportedAbiType,
   C extends ContractNames = ContractNames,
+  V extends Version = Version,
 > = {
   chainId: SdkSupportedChainIds;
   type: C;
   abi: A;
+  version: V;
 };
 
 export class GenericContractLogic<
   A extends SupportedAbiType = SupportedAbiType,
   C extends ContractNames = ContractNames,
+  V extends Version = Version,
 > {
   private abi: A;
   private contractType: C;
   private chainId: SdkSupportedChainIds;
   private clientHelper: Client;
   private chain: Chain;
+  private version: V;
 
-  constructor(params: GenericLogicConstructorParams<A, C>) {
-    const { chainId, type, abi } = params;
+  constructor(params: GenericLogicConstructorParams<A, C, V>) {
+    const { chainId, type, abi, version } = params;
 
     this.contractType = type;
     this.abi = abi;
     this.chainId = chainId;
     this.chain = getChain(chainId);
     this.clientHelper = new Client();
+    this.version = version;
   }
 
   public read<
@@ -66,7 +72,7 @@ export class GenericContractLogic<
     if ('tokenAddress' in params) {
       address = params.tokenAddress;
     } else {
-      address = getMintClubContractAddress(this.contractType, this.chainId);
+      address = getMintClubContractAddress(this.contractType, this.chainId, this.version);
     }
 
     const publicClient = this.clientHelper._getPublicClient(this.chainId);
@@ -93,7 +99,7 @@ export class GenericContractLogic<
     if ('tokenAddress' in params) {
       address = params.tokenAddress;
     } else {
-      address = getMintClubContractAddress(this.contractType, this.chainId);
+      address = getMintClubContractAddress(this.contractType, this.chainId, this.version);
     }
 
     try {

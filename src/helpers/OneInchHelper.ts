@@ -21,7 +21,7 @@ import {
   optimismSepolia,
 } from 'viem/chains';
 import { oneInchContract } from '../contracts';
-import { SdkSupportedChainIds, toNumber } from '../exports';
+import { SdkSupportedChainIds, toNumber, Version } from '../exports';
 
 export type USDValueOptions = {
   tokenAddress: `0x${string}`;
@@ -90,9 +90,10 @@ export const STABLE_COINS: Record<SdkSupportedChainIds, { address: `0x${string}`
 
 export class OneInch {
   private chainId: SdkSupportedChainIds;
-
-  constructor(chainId: SdkSupportedChainIds) {
+  private version: Version;
+  constructor(chainId: SdkSupportedChainIds, version: Version) {
     this.chainId = chainId;
+    this.version = version;
   }
 
   public async getUsdRate({ tokenAddress, tokenDecimals }: USDValueOptions) {
@@ -105,7 +106,7 @@ export class OneInch {
 
     if (isSameToken) return { rate: 1, stableCoin: STABLE_COINS[this.chainId] };
 
-    const rate = await oneInchContract.network(this.chainId).read({
+    const rate = await oneInchContract.network(this.chainId, this.version).read({
       functionName: 'getRate',
       args: [tokenAddress, STABLE_COINS[this.chainId].address, false],
     });

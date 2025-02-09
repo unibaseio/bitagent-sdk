@@ -3345,7 +3345,8 @@ declare const SDK_CONTRACT_ADDRESSES: {
         readonly 5112: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8";
     };
 };
-declare function getMintClubContractAddress(contractName: ContractNames, chainId: SdkSupportedChainIds): "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB" | "0x187E536C5404dD472476B9e4C716878d359a506A" | "0x912e3153a021b092ab85EA79B2a5d07b04B0073B" | "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537" | "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867" | "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x";
+type Version = "0.1.0" | "0.2.0";
+declare function getMintClubContractAddress(contractName: ContractNames, chainId: SdkSupportedChainIds, version?: Version): "0xDEF22E6C358f10690D433CC82a0Ca9d98D3a8ebB" | "0x187E536C5404dD472476B9e4C716878d359a506A" | "0x912e3153a021b092ab85EA79B2a5d07b04B0073B" | "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537" | "0xBF2eb2b419d1871446509B7Ac233bd32Be7B8867" | "0xDF407862072B4de05aae94c1A2f0bE5EF8C72225" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8" | "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8x" | "0x72C2AFf46bE96f86a4a0Ca03DcCbC13fabA1388a" | "0x31cA89a5D7Ff696f691bDaC8f7F2D3b03C5011c3" | "0xCadA74C15F911Fdb653F8ecCc3Ef109b590Cf868" | "0xE9af8f69DF5cb825012d07cBd5C811A3a4c70c06" | "0x3A6EDDf80d55E35A1fc2f92EE07800999E4d3fd9" | "0x3e1C761024e1f93959F409641E8e0AbC63333604";
 type ExcludeValue<T, V> = T extends V ? never : T;
 type ExtractChainIds<T> = T extends {
     [key: string]: infer U;
@@ -3451,7 +3452,8 @@ declare function getSubscriptNumber(params: {
 
 declare class Bond {
     protected chainId: SdkSupportedChainIds;
-    constructor(chainId: SdkSupportedChainIds);
+    protected version: Version;
+    constructor(chainId: SdkSupportedChainIds, version: Version);
     getCreationFee(): Promise<bigint>;
     getTokensByReserveToken(params: {
         reserveToken: `0x${string}`;
@@ -11262,6 +11264,7 @@ type TokenHelperConstructorParams = {
     symbolOrAddress: string;
     chainId: SdkSupportedChainIds;
     tokenType: TokenType;
+    version: Version;
 };
 type TokenCreateAirdropParams = {
     title: string;
@@ -11286,7 +11289,8 @@ type CreateAirdropParams = {
 
 declare class Airdrop {
     protected chainId: SdkSupportedChainIds;
-    constructor(chainId: SdkSupportedChainIds);
+    protected version: Version;
+    constructor(chainId: SdkSupportedChainIds, version: Version);
     getTotalAirdropCount(): Promise<bigint>;
     getAirdropById(airdropId: number): Promise<{
         token: `0x${string}`;
@@ -11345,7 +11349,8 @@ type USDValueOptions = {
 };
 declare class OneInch {
     private chainId;
-    constructor(chainId: SdkSupportedChainIds);
+    private version;
+    constructor(chainId: SdkSupportedChainIds, version: Version);
     getUsdRate({ tokenAddress, tokenDecimals }: USDValueOptions): Promise<{
         rate: number;
         stableCoin: {
@@ -11365,6 +11370,7 @@ declare class Token<T extends TokenType> {
     protected symbol?: string;
     protected tokenType: T;
     protected chain: Chain;
+    protected version: Version;
     protected chainId: SdkSupportedChainIds;
     constructor(params: TokenHelperConstructorParams);
     protected getConnectedWalletAddress(): Promise<`0x${string}`>;
@@ -11522,7 +11528,8 @@ type CreateLockUpParams = {
 
 declare class Lockup {
     protected chainId: SdkSupportedChainIds;
-    constructor(chainId: SdkSupportedChainIds);
+    protected version: Version;
+    constructor(chainId: SdkSupportedChainIds, version: Version);
     getTotalLockUpCount(): Promise<bigint>;
     getLockUpIdsByReceiver(params: {
         receiver: `0x${string}`;
@@ -11565,7 +11572,7 @@ declare class MintClubSDK {
     wallet: Client;
     ipfs: Ipfs;
     utils: Utils;
-    network(id: SdkSupportedChainIds | LowerCaseChainNames): NetworkReturnType;
+    network(id: SdkSupportedChainIds | LowerCaseChainNames, version?: Version): NetworkReturnType;
     private withClientHelper;
     withPublicClient(publicClient: PublicClient): MintClubSDK;
     withWalletClient(walletClient: WalletClient): MintClubSDK;
@@ -11574,18 +11581,20 @@ declare class MintClubSDK {
 type AbiType<T extends ContractNames> = T extends 'BOND' ? typeof BOND_ABI : T extends 'ERC20' ? typeof ERC20_ABI : T extends 'ERC1155' ? typeof ERC1155_ABI : T extends 'LOCKER' ? typeof LOCKER_ABI : T extends 'MERKLE' ? typeof MERKLE_ABI : T extends 'ZAP' ? typeof ZAP_ABI : T extends 'ONEINCH' ? typeof ONEINCH_ABI : never;
 type SupportedAbiType = typeof BOND_ABI | typeof ERC20_ABI | typeof ERC1155_ABI | typeof LOCKER_ABI | typeof MERKLE_ABI | typeof ZAP_ABI | typeof ONEINCH_ABI;
 
-type GenericLogicConstructorParams<A extends SupportedAbiType = SupportedAbiType, C extends ContractNames = ContractNames> = {
+type GenericLogicConstructorParams<A extends SupportedAbiType = SupportedAbiType, C extends ContractNames = ContractNames, V extends Version = Version> = {
     chainId: SdkSupportedChainIds;
     type: C;
     abi: A;
+    version: V;
 };
-declare class GenericContractLogic<A extends SupportedAbiType = SupportedAbiType, C extends ContractNames = ContractNames> {
+declare class GenericContractLogic<A extends SupportedAbiType = SupportedAbiType, C extends ContractNames = ContractNames, V extends Version = Version> {
     private abi;
     private contractType;
     private chainId;
     private clientHelper;
     private chain;
-    constructor(params: GenericLogicConstructorParams<A, C>);
+    private version;
+    constructor(params: GenericLogicConstructorParams<A, C, V>);
     read<T extends ContractFunctionName<A, 'view' | 'pure'>, R extends ContractFunctionArgs<A, 'view' | 'pure', T>>(params: TokenContractReadWriteArgs<A, T, R, C>): Promise<ReadContractReturnType<A, T, R>>;
     write<T extends ContractFunctionName<A, 'payable' | 'nonpayable'>, R extends ContractFunctionArgs<A, 'payable' | 'nonpayable', T>>(params: GenericWriteParams<A, T, R, C>): Promise<TransactionReceipt | undefined>;
 }
@@ -11599,7 +11608,7 @@ declare class GenericContract<T extends ContractNames> {
     private contractType;
     private abi;
     constructor(type: T);
-    network(id: SdkSupportedChainIds | LowerCaseChainNames): GenericContractLogic<AbiType<T>, T>;
+    network(id: SdkSupportedChainIds | LowerCaseChainNames, version: Version): GenericContractLogic<AbiType<T>, T>;
 }
 
 declare const bondContract: GenericContract<"BOND">;
@@ -11705,4 +11714,4 @@ declare const supportedChainsMap: Record<LowerCaseChainNames, SdkSupportedChainI
 
 declare const mintclub: MintClubSDK;
 
-export { BOND_ABI, BOND_ERROR_MESSAGES, type BaseToken, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, type ChainType, type ContractNames, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, type LowerCaseChainNames, MERKLE_ABI, MERKLE_ERROR_MESSAGES, type MainnetChain, ONEINCH_ABI, type RPCList, RPCS, type SdkSupportedChainIds, TOKENS, type TableData, type TokenChain, type TokenSymbol, type TokenType, WRAPPED_NATIVE_TOKENS, type WrappedToken, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getChain, getMintClubContractAddress, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, mintclub, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei, whitelistedTokens, zapContract };
+export { BOND_ABI, BOND_ERROR_MESSAGES, type BaseToken, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, type ChainType, type ContractNames, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, type LowerCaseChainNames, MERKLE_ABI, MERKLE_ERROR_MESSAGES, type MainnetChain, ONEINCH_ABI, type RPCList, RPCS, type SdkSupportedChainIds, TOKENS, type TableData, type TokenChain, type TokenSymbol, type TokenType, type Version, WRAPPED_NATIVE_TOKENS, type WrappedToken, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getChain, getMintClubContractAddress, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, mintclub, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei, whitelistedTokens, zapContract };

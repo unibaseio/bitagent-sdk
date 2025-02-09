@@ -14,7 +14,7 @@ export class ERC20 extends Token<'ERC20'> {
 
   public getAllowance(params: { owner: `0x${string}`; spender: `0x${string}` }) {
     const { owner, spender } = params;
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'allowance',
       args: [owner, spender],
@@ -22,7 +22,7 @@ export class ERC20 extends Token<'ERC20'> {
   }
 
   public getBalanceOf(walletAddress: `0x${string}`) {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'balanceOf',
       args: [walletAddress],
@@ -30,35 +30,35 @@ export class ERC20 extends Token<'ERC20'> {
   }
 
   public getBondAddress() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'bond',
     });
   }
 
   public getDecimals() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'decimals',
     });
   }
 
   public getName() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'name',
     });
   }
 
   public getSymbol() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'symbol',
     });
   }
 
   public getTotalSupply() {
-    return erc20Contract.network(this.chainId).read({
+    return erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: this.getTokenAddress(),
       functionName: 'totalSupply',
     });
@@ -66,7 +66,7 @@ export class ERC20 extends Token<'ERC20'> {
 
   public async approve(params: { spender: `0x${string}`; amount: bigint } & CommonWriteParams) {
     const { spender, amount } = params;
-    return erc20Contract.network(this.chainId).write({
+    return erc20Contract.network(this.chainId, this.version).write({
       ...params,
       tokenAddress: this.getTokenAddress(),
       functionName: 'approve',
@@ -77,7 +77,7 @@ export class ERC20 extends Token<'ERC20'> {
   public async create(params: CreateERC20TokenParams & Omit<CommonWriteParams, 'value'>) {
     try {
       const { args, fee } = await this.checkAndPrepareCreateArgs(params);
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: 'createToken',
         args: [args.tokenParams, args.bondParams],

@@ -1,6 +1,6 @@
 import MerkleTree from 'merkletreejs';
 import { Chain, isAddress, keccak256, maxUint256 } from 'viem';
-import { ContractNames, SdkSupportedChainIds, TokenType, getMintClubContractAddress } from '../constants/contracts';
+import { ContractNames, SdkSupportedChainIds, TokenType, Version, getMintClubContractAddress } from '../constants/contracts';
 import { bondContract, erc1155Contract, erc20Contract, zapContract } from '../contracts';
 import {
   AirdropContainsInvalidWalletError,
@@ -38,10 +38,11 @@ export class Token<T extends TokenType> {
   protected symbol?: string;
   protected tokenType: T;
   protected chain: Chain;
+  protected version: Version;
   protected chainId: SdkSupportedChainIds;
 
   constructor(params: TokenHelperConstructorParams) {
-    const { symbolOrAddress, chainId, tokenType } = params;
+    const { symbolOrAddress, chainId, tokenType, version } = params;
 
     if (isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
@@ -52,11 +53,12 @@ export class Token<T extends TokenType> {
 
     this.chain = getChain(chainId);
     this.chainId = chainId;
+    this.version = version;
     this.tokenType = tokenType as T;
     this.clientHelper = new Client();
     this.ipfsHelper = new Ipfs();
-    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId);
-    this.airdropHelper = new Airdrop(this.chainId);
+    this.oneinch = new OneInch(chainId === bscTestnet.id ? bsc.id : chainId, version);
+    this.airdropHelper = new Airdrop(this.chainId, version);
   }
 
   protected async getConnectedWalletAddress() {
@@ -74,7 +76,7 @@ export class Token<T extends TokenType> {
     const tokenToApprove = await this.tokenToApprove(tradeType);
 
     if (this.tokenType === 'ERC1155' && tradeType === 'sell') {
-      return erc1155Contract.network(this.chainId).read({
+      return erc1155Contract.network(this.chainId, this.version).read({
         tokenAddress: this.tokenAddress,
         functionName: 'isApprovedForAll',
         args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId)],
@@ -86,7 +88,7 @@ export class Token<T extends TokenType> {
       amountToSpend = params.amountToSpend;
     }
 
-    const allowance = await erc20Contract.network(this.chainId).read({
+    const allowance = await erc20Contract.network(this.chainId, this.version).read({
       tokenAddress: tokenToApprove,
       functionName: 'allowance',
       args: [walletAddress, getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId)],
@@ -98,7 +100,7 @@ export class Token<T extends TokenType> {
   private async contractIsApproved(params: ApproveParams<T>, contract: ContractNames) {
     const connectedAddress = await this.getConnectedWalletAddress();
     if (this.tokenType === 'ERC1155') {
-      return erc1155Contract.network(this.chainId).read({
+      return erc1155Contract.network(this.chainId, this.version).read({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'isApprovedForAll',
@@ -111,7 +113,7 @@ export class Token<T extends TokenType> {
         amountToSpend = params.allowanceAmount;
       }
 
-      const allowance = await erc20Contract.network(this.chainId).read({
+      const allowance = await erc20Contract.network(this.chainId, this.version).read({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'allowance',
@@ -124,11 +126,11 @@ export class Token<T extends TokenType> {
 
   private approveContract(params: ApproveParams<T> & WriteTransactionCallbacks, contract: ContractNames) {
     if (this.tokenType === 'ERC1155') {
-      return erc1155Contract.network(this.chainId).write({
+      return erc1155Contract.network(this.chainId, this.version).write({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'setApprovalForAll',
-        args: [getMintClubContractAddress(contract, this.chainId), true],
+        args: [getMintClubContractAddress(contract, this.chainId, this.version), true],
       });
     } else {
       let amountToSpend = maxUint256;
@@ -137,7 +139,7 @@ export class Token<T extends TokenType> {
         amountToSpend = params.allowanceAmount;
       }
 
-      return erc20Contract.network(this.chainId).write({
+      return erc20Contract.network(this.chainId, this.version).write({
         ...params,
         tokenAddress: this.tokenAddress,
         functionName: 'approve',
@@ -151,14 +153,14 @@ export class Token<T extends TokenType> {
     const tokenToCheck = await this.tokenToApprove(tradeType);
 
     if (this.tokenType === 'ERC1155' && tradeType === 'sell') {
-      return erc1155Contract.network(this.chainId).write({
+      return erc1155Contract.network(this.chainId, this.version).write({
         ...params,
         onSignatureRequest: onAllowanceSignatureRequest,
         onSigned: onAllowanceSigned,
         onSuccess: onAllowanceSuccess,
         tokenAddress: this.tokenAddress,
         functionName: 'setApprovalForAll',
-        args: [getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId), true],
+        args: [getMintClubContractAddress(isZap ? 'ZAP' : 'BOND', this.chainId, this.version), true],
       });
     } else {
       let amountToSpend = maxUint256;
@@ -167,7 +169,7 @@ export class Token<T extends TokenType> {
         amountToSpend = params.allowanceAmount;
       }
 
-      return erc20Contract.network(this.chainId).write({
+      return erc20Contract.network(this.chainId, this.version).write({
         ...params,
         onSignatureRequest: onAllowanceSignatureRequest,
         onSigned: onAllowanceSigned,
@@ -180,7 +182,7 @@ export class Token<T extends TokenType> {
   }
 
   protected getCreationFee() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'creationFee',
     });
   }
@@ -192,7 +194,7 @@ export class Token<T extends TokenType> {
   }
 
   public exists() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'exists',
       args: [this.tokenAddress],
     });
@@ -201,9 +203,9 @@ export class Token<T extends TokenType> {
   public async getReserveToken() {
     const { reserveToken } = await this.getTokenBond();
     const [name, symbol, decimals] = await Promise.all([
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: 'name' }),
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: 'symbol' }),
-      erc20Contract.network(this.chainId).read({ tokenAddress: reserveToken, functionName: 'decimals' }),
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: 'name' }),
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: 'symbol' }),
+      erc20Contract.network(this.chainId, this.version).read({ tokenAddress: reserveToken, functionName: 'decimals' }),
     ]);
 
     return {
@@ -236,7 +238,7 @@ export class Token<T extends TokenType> {
   }
 
   public getDetail() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'getDetail',
       args: [this.tokenAddress],
     });
@@ -244,7 +246,7 @@ export class Token<T extends TokenType> {
 
   public async getTokenBond() {
     const [creator, mintRoyalty, burnRoyalty, createdAt, reserveToken, reserveBalance] = await bondContract
-      .network(this.chainId)
+      .network(this.chainId, this.version)
       .read({
         functionName: 'tokenBond',
         args: [this.tokenAddress],
@@ -261,35 +263,35 @@ export class Token<T extends TokenType> {
   }
 
   public getSteps() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'getSteps',
       args: [this.tokenAddress],
     });
   }
 
   public getMaxSupply() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'maxSupply',
       args: [this.tokenAddress],
     });
   }
 
   public getPriceForNextMint() {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'priceForNextMint',
       args: [this.tokenAddress],
     });
   }
 
   public getSellEstimation(amount: bigint) {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'getRefundForTokens',
       args: [this.tokenAddress, amount],
     });
   }
 
   public getBuyEstimation(amount: bigint) {
-    return bondContract.network(this.chainId).read({
+    return bondContract.network(this.chainId, this.version).read({
       functionName: 'getReserveForToken',
       args: [this.tokenAddress, amount],
     });
@@ -339,7 +341,7 @@ export class Token<T extends TokenType> {
         } as ApproveBondParams<T, 'buy'>);
       }
 
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: 'mint',
         args: [this.tokenAddress, amount, maxReserveAmount, recipient || connectedAddress],
@@ -375,7 +377,7 @@ export class Token<T extends TokenType> {
         } as ApproveBondParams<T, 'sell'>);
       }
 
-      return bondContract.network(this.chainId).write({
+      return bondContract.network(this.chainId, this.version).write({
         ...params,
         functionName: 'burn',
         args: [this.tokenAddress, amount, minReserveAmount, recipient || connectedAddress],
@@ -392,7 +394,7 @@ export class Token<T extends TokenType> {
       const [estimatedOutcome] = await this.getBuyEstimation(amount);
       const maxReserveAmount = estimatedOutcome + (estimatedOutcome * BigInt(slippage * 100)) / 10_000n;
 
-      return zapContract.network(this.chainId).write({
+      return zapContract.network(this.chainId, this.version).write({
         ...params,
         functionName: 'mintWithEth',
         args: [this.tokenAddress, amount, recipient || connectedAddress],
@@ -430,7 +432,7 @@ export class Token<T extends TokenType> {
         } as ApproveBondParams<T, 'sell'>);
       }
 
-      return zapContract.network(this.chainId).write({
+      return zapContract.network(this.chainId, this.version).write({
         ...params,
         functionName: 'burnToEth',
         args: [this.tokenAddress, amount, minReserveAmount, recipient || connectedAddress],
@@ -445,7 +447,7 @@ export class Token<T extends TokenType> {
 
     try {
       if (this.tokenType === 'ERC20') {
-        return erc20Contract.network(this.chainId).write({
+        return erc20Contract.network(this.chainId, this.version).write({
           ...params,
           tokenAddress: this.getTokenAddress(),
           functionName: 'transfer',
@@ -453,7 +455,7 @@ export class Token<T extends TokenType> {
         });
       } else {
         const connectedAddress = await this.getConnectedWalletAddress();
-        return erc1155Contract.network(this.chainId).write({
+        return erc1155Contract.network(this.chainId, this.version).write({
           ...params,
           tokenAddress: this.getTokenAddress(),
           functionName: 'safeTransferFrom',
@@ -477,7 +479,7 @@ export class Token<T extends TokenType> {
     let decimals = 0;
 
     if (this.tokenType === 'ERC20') {
-      decimals = await erc20Contract.network(this.chainId).read({
+      decimals = await erc20Contract.network(this.chainId, this.version).read({
         tokenAddress: this.getTokenAddress(),
         functionName: 'decimals',
       });

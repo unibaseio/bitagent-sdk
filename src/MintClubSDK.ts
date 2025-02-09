@@ -1,6 +1,6 @@
 import { PublicClient, WalletClient } from 'viem';
 import { InvalidClientError } from './errors/sdk.errors';
-import { LowerCaseChainNames, SdkSupportedChainIds, chainStringToId } from './exports';
+import { LowerCaseChainNames, SdkSupportedChainIds, Version, chainStringToId } from './exports';
 import { Bond } from './helpers/BondHelper';
 import { Client } from './helpers/ClientHelper';
 import { ERC1155 } from './helpers/ERC1155Helper';
@@ -25,7 +25,7 @@ export class MintClubSDK {
   public ipfs = new Ipfs();
   public utils = new Utils();
 
-  public network(id: SdkSupportedChainIds | LowerCaseChainNames): NetworkReturnType {
+  public network(id: SdkSupportedChainIds | LowerCaseChainNames, version: Version = "0.1.0"): NetworkReturnType {
     let chainId: SdkSupportedChainIds;
 
     if (typeof id === 'string') {
@@ -34,10 +34,10 @@ export class MintClubSDK {
       chainId = id;
     }
 
-    return this.withClientHelper(this.wallet, chainId);
+    return this.withClientHelper(this.wallet, chainId, version);
   }
 
-  private withClientHelper(clientHelper: Client, chainId: SdkSupportedChainIds) {
+  private withClientHelper(clientHelper: Client, chainId: SdkSupportedChainIds, version: Version ) {
     return Object.assign(clientHelper, {
       getPublicClient(): PublicClient {
         return clientHelper._getPublicClient(chainId);
@@ -47,6 +47,7 @@ export class MintClubSDK {
         return new ERC20({
           symbolOrAddress,
           chainId,
+          version
         });
       },
 
@@ -54,12 +55,13 @@ export class MintClubSDK {
         return new ERC1155({
           symbolOrAddress,
           chainId,
+          version
         });
       },
 
-      airdrop: new Airdrop(chainId),
-      lockup: new Lockup(chainId),
-      bond: new Bond(chainId),
+      airdrop: new Airdrop(chainId, version),
+      lockup: new Lockup(chainId, version),
+      bond: new Bond(chainId, version),
     });
   }
 
