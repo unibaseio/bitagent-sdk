@@ -808,7 +808,7 @@ const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
   "0.4.0": v4_SDK_CONTRACT_ADDRESSES
 } as const;
 
-export type Version = "0.1.0" | "0.2.0" | "0.3.0" | "0.3.1"
+export type Version = "0.1.0" | "0.2.0" | "0.3.0" | "0.3.1" | "0.4.0";
 
 export function getMintClubContractAddress(contractName: ContractNames, chainId: SdkSupportedChainIds, version: Version = "0.1.0") {
   let contractAddress = VERSION_TO_SDK_CONTRACT_ADDRESSES[version][contractName][chainId];
