@@ -8,1136 +8,1265 @@ import { sepolia, blastSepolia, avalancheFuji, cyberTestnet } from 'viem/chains'
 import * as viem_experimental from 'viem/experimental';
 
 declare const BOND_ABI: readonly [{
-    readonly type: "constructor";
     readonly inputs: readonly [{
+        readonly internalType: "address";
         readonly name: "tokenImplementation";
         readonly type: "address";
-        readonly internalType: "address";
     }, {
+        readonly internalType: "address";
         readonly name: "multiTokenImplementation";
         readonly type: "address";
-        readonly internalType: "address";
     }, {
+        readonly internalType: "address";
         readonly name: "protocolBeneficiary_";
         readonly type: "address";
-        readonly internalType: "address";
     }, {
+        readonly internalType: "uint256";
         readonly name: "creationFee_";
         readonly type: "uint256";
-        readonly internalType: "uint256";
     }, {
+        readonly internalType: "uint256";
         readonly name: "maxSteps";
         readonly type: "uint256";
-        readonly internalType: "uint256";
+    }, {
+        readonly internalType: "address";
+        readonly name: "uniswapV3Factory_";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "positionManager_";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "rewardManager_";
+        readonly type: "address";
     }];
     readonly stateMutability: "nonpayable";
+    readonly type: "constructor";
 }, {
-    readonly type: "function";
-    readonly name: "BURN_ADDRESS";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "burn";
     readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
         readonly internalType: "address";
-    }, {
-        readonly name: "tokensToBurn";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "minRefund";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "receiver";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "burnRoyalties";
-    readonly inputs: readonly [{
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "claimRoyalties";
-    readonly inputs: readonly [{
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "createMultiToken";
-    readonly inputs: readonly [{
-        readonly name: "tp";
-        readonly type: "tuple";
-        readonly internalType: "struct MCV2_Bond.MultiTokenParams";
-        readonly components: readonly [{
-            readonly name: "name";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "symbol";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "uri";
-            readonly type: "string";
-            readonly internalType: "string";
-        }];
-    }, {
-        readonly name: "bp";
-        readonly type: "tuple";
-        readonly internalType: "struct MCV2_Bond.BondParams";
-        readonly components: readonly [{
-            readonly name: "mintRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "burnRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "reserveToken";
-            readonly type: "address";
-            readonly internalType: "address";
-        }, {
-            readonly name: "maxSupply";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "stepRanges";
-            readonly type: "uint128[]";
-            readonly internalType: "uint128[]";
-        }, {
-            readonly name: "stepPrices";
-            readonly type: "uint128[]";
-            readonly internalType: "uint128[]";
-        }];
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "payable";
-}, {
-    readonly type: "function";
-    readonly name: "createToken";
-    readonly inputs: readonly [{
-        readonly name: "tp";
-        readonly type: "tuple";
-        readonly internalType: "struct MCV2_Bond.TokenParams";
-        readonly components: readonly [{
-            readonly name: "name";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "symbol";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "agentHash";
-            readonly type: "bytes32";
-            readonly internalType: "bytes32";
-        }];
-    }, {
-        readonly name: "bp";
-        readonly type: "tuple";
-        readonly internalType: "struct MCV2_Bond.BondParams";
-        readonly components: readonly [{
-            readonly name: "mintRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "burnRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "reserveToken";
-            readonly type: "address";
-            readonly internalType: "address";
-        }, {
-            readonly name: "maxSupply";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "stepRanges";
-            readonly type: "uint128[]";
-            readonly internalType: "uint128[]";
-        }, {
-            readonly name: "stepPrices";
-            readonly type: "uint128[]";
-            readonly internalType: "uint128[]";
-        }];
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "payable";
-}, {
-    readonly type: "function";
-    readonly name: "creationFee";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "exists";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "bool";
-        readonly internalType: "bool";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getDetail";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "detail";
-        readonly type: "tuple";
-        readonly internalType: "struct MCV2_Bond.BondDetail";
-        readonly components: readonly [{
-            readonly name: "mintRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "burnRoyalty";
-            readonly type: "uint16";
-            readonly internalType: "uint16";
-        }, {
-            readonly name: "info";
-            readonly type: "tuple";
-            readonly internalType: "struct MCV2_Bond.BondInfo";
-            readonly components: readonly [{
-                readonly name: "creator";
-                readonly type: "address";
-                readonly internalType: "address";
-            }, {
-                readonly name: "token";
-                readonly type: "address";
-                readonly internalType: "address";
-            }, {
-                readonly name: "decimals";
-                readonly type: "uint8";
-                readonly internalType: "uint8";
-            }, {
-                readonly name: "symbol";
-                readonly type: "string";
-                readonly internalType: "string";
-            }, {
-                readonly name: "name";
-                readonly type: "string";
-                readonly internalType: "string";
-            }, {
-                readonly name: "createdAt";
-                readonly type: "uint40";
-                readonly internalType: "uint40";
-            }, {
-                readonly name: "currentSupply";
-                readonly type: "uint128";
-                readonly internalType: "uint128";
-            }, {
-                readonly name: "maxSupply";
-                readonly type: "uint128";
-                readonly internalType: "uint128";
-            }, {
-                readonly name: "priceForNextMint";
-                readonly type: "uint128";
-                readonly internalType: "uint128";
-            }, {
-                readonly name: "reserveToken";
-                readonly type: "address";
-                readonly internalType: "address";
-            }, {
-                readonly name: "reserveDecimals";
-                readonly type: "uint8";
-                readonly internalType: "uint8";
-            }, {
-                readonly name: "reserveSymbol";
-                readonly type: "string";
-                readonly internalType: "string";
-            }, {
-                readonly name: "reserveName";
-                readonly type: "string";
-                readonly internalType: "string";
-            }, {
-                readonly name: "reserveBalance";
-                readonly type: "uint256";
-                readonly internalType: "uint256";
-            }];
-        }, {
-            readonly name: "steps";
-            readonly type: "tuple[]";
-            readonly internalType: "struct MCV2_Bond.BondStep[]";
-            readonly components: readonly [{
-                readonly name: "rangeTo";
-                readonly type: "uint128";
-                readonly internalType: "uint128";
-            }, {
-                readonly name: "price";
-                readonly type: "uint128";
-                readonly internalType: "uint128";
-            }];
-        }];
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getList";
-    readonly inputs: readonly [{
-        readonly name: "start";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "stop";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "info";
-        readonly type: "tuple[]";
-        readonly internalType: "struct MCV2_Bond.BondInfo[]";
-        readonly components: readonly [{
-            readonly name: "creator";
-            readonly type: "address";
-            readonly internalType: "address";
-        }, {
-            readonly name: "token";
-            readonly type: "address";
-            readonly internalType: "address";
-        }, {
-            readonly name: "decimals";
-            readonly type: "uint8";
-            readonly internalType: "uint8";
-        }, {
-            readonly name: "symbol";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "name";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "createdAt";
-            readonly type: "uint40";
-            readonly internalType: "uint40";
-        }, {
-            readonly name: "currentSupply";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "maxSupply";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "priceForNextMint";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "reserveToken";
-            readonly type: "address";
-            readonly internalType: "address";
-        }, {
-            readonly name: "reserveDecimals";
-            readonly type: "uint8";
-            readonly internalType: "uint8";
-        }, {
-            readonly name: "reserveSymbol";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "reserveName";
-            readonly type: "string";
-            readonly internalType: "string";
-        }, {
-            readonly name: "reserveBalance";
-            readonly type: "uint256";
-            readonly internalType: "uint256";
-        }];
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getRefundForTokens";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "tokensToBurn";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "refundAmount";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "royalty";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getReserveForToken";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "tokensToMint";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "reserveAmount";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "royalty";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getRoyaltyInfo";
-    readonly inputs: readonly [{
-        readonly name: "wallet";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getSteps";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "tuple[]";
-        readonly internalType: "struct MCV2_Bond.BondStep[]";
-        readonly components: readonly [{
-            readonly name: "rangeTo";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }, {
-            readonly name: "price";
-            readonly type: "uint128";
-            readonly internalType: "uint128";
-        }];
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getTokensByCreator";
-    readonly inputs: readonly [{
-        readonly name: "creator";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "start";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "stop";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "addresses";
-        readonly type: "address[]";
-        readonly internalType: "address[]";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "getTokensByReserveToken";
-    readonly inputs: readonly [{
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "start";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "stop";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "addresses";
-        readonly type: "address[]";
-        readonly internalType: "address[]";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "maxRoyaltyRange";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "maxSupply";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint128";
-        readonly internalType: "uint128";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "mint";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "tokensToMint";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "maxReserveAmount";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "receiver";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "owner";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "priceForNextMint";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint128";
-        readonly internalType: "uint128";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "protocolBeneficiary";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "renounceOwnership";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "tokenBond";
-    readonly inputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "creator";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "mintRoyalty";
-        readonly type: "uint16";
-        readonly internalType: "uint16";
-    }, {
-        readonly name: "burnRoyalty";
-        readonly type: "uint16";
-        readonly internalType: "uint16";
-    }, {
-        readonly name: "createdAt";
-        readonly type: "uint40";
-        readonly internalType: "uint40";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "reserveBalance";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "tokenCount";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "tokens";
-    readonly inputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "transferOwnership";
-    readonly inputs: readonly [{
-        readonly name: "newOwner";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "updateBondCreator";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "creator";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "updateCreationFee";
-    readonly inputs: readonly [{
-        readonly name: "amount";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "updateMaxRoyaltyRange";
-    readonly inputs: readonly [{
-        readonly name: "ratio";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "updateProtocolBeneficiary";
-    readonly inputs: readonly [{
-        readonly name: "protocolBeneficiary_";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [];
-    readonly stateMutability: "nonpayable";
-}, {
-    readonly type: "function";
-    readonly name: "userTokenRoyaltyBalance";
-    readonly inputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "userTokenRoyaltyClaimed";
-    readonly inputs: readonly [{
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "";
-        readonly type: "address";
-        readonly internalType: "address";
-    }];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "uint256";
-        readonly internalType: "uint256";
-    }];
-    readonly stateMutability: "view";
-}, {
-    readonly type: "function";
-    readonly name: "version";
-    readonly inputs: readonly [];
-    readonly outputs: readonly [{
-        readonly name: "";
-        readonly type: "string";
-        readonly internalType: "string";
-    }];
-    readonly stateMutability: "pure";
-}, {
-    readonly type: "event";
-    readonly name: "BondCreatorUpdated";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "creator";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "Burn";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "user";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "receiver";
-        readonly type: "address";
-        readonly indexed: false;
-        readonly internalType: "address";
-    }, {
-        readonly name: "amountBurned";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "refundAmount";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "CreationFeeUpdated";
-    readonly inputs: readonly [{
-        readonly name: "amount";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "Mint";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "user";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "receiver";
-        readonly type: "address";
-        readonly indexed: false;
-        readonly internalType: "address";
-    }, {
-        readonly name: "amountMinted";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "reserveAmount";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "MultiTokenCreated";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "name";
-        readonly type: "string";
-        readonly indexed: false;
-        readonly internalType: "string";
-    }, {
-        readonly name: "symbol";
-        readonly type: "string";
-        readonly indexed: false;
-        readonly internalType: "string";
-    }, {
-        readonly name: "uri";
-        readonly type: "string";
-        readonly indexed: false;
-        readonly internalType: "string";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "OwnershipTransferred";
-    readonly inputs: readonly [{
-        readonly name: "previousOwner";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "newOwner";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "ProtocolBeneficiaryUpdated";
-    readonly inputs: readonly [{
-        readonly name: "protocolBeneficiary";
-        readonly type: "address";
-        readonly indexed: false;
-        readonly internalType: "address";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "RoyaltyClaimed";
-    readonly inputs: readonly [{
-        readonly name: "user";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly indexed: false;
-        readonly internalType: "address";
-    }, {
-        readonly name: "amount";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "RoyaltyRangeUpdated";
-    readonly inputs: readonly [{
-        readonly name: "ratio";
-        readonly type: "uint256";
-        readonly indexed: false;
-        readonly internalType: "uint256";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "event";
-    readonly name: "TokenCreated";
-    readonly inputs: readonly [{
-        readonly name: "token";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "name";
-        readonly type: "string";
-        readonly indexed: false;
-        readonly internalType: "string";
-    }, {
-        readonly name: "symbol";
-        readonly type: "string";
-        readonly indexed: false;
-        readonly internalType: "string";
-    }, {
-        readonly name: "reserveToken";
-        readonly type: "address";
-        readonly indexed: true;
-        readonly internalType: "address";
-    }, {
-        readonly name: "agenthash";
-        readonly type: "bytes32";
-        readonly indexed: true;
-        readonly internalType: "bytes32";
-    }];
-    readonly anonymous: false;
-}, {
-    readonly type: "error";
-    readonly name: "AddressEmptyCode";
-    readonly inputs: readonly [{
         readonly name: "target";
         readonly type: "address";
-        readonly internalType: "address";
     }];
-}, {
+    readonly name: "AddressEmptyCode";
     readonly type: "error";
-    readonly name: "AddressInsufficientBalance";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "address";
         readonly name: "account";
         readonly type: "address";
-        readonly internalType: "address";
     }];
-}, {
+    readonly name: "AddressInsufficientBalance";
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "ERC1167FailedCreateClone";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "FailedInnerCall";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_BOND__InvalidPaginationParameters";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__CreationFeeTransactionFailed";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__ExceedMaxSupply";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__ExceedTotalSupply";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "string";
+        readonly name: "reason";
+        readonly type: "string";
+    }];
     readonly name: "MCV2_Bond__InvalidConstructorParams";
-    readonly inputs: readonly [{
-        readonly name: "reason";
-        readonly type: "string";
-        readonly internalType: "string";
-    }];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__InvalidCreationFee";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__InvalidCreatorAddress";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__InvalidCurrentSupply";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "string";
+        readonly name: "reason";
+        readonly type: "string";
+    }];
+    readonly name: "MCV2_Bond__InvalidGraduateReserveAmount";
+    readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__InvalidReceiver";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "string";
+        readonly name: "reason";
+        readonly type: "string";
+    }];
     readonly name: "MCV2_Bond__InvalidReserveToken";
+    readonly type: "error";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "string";
         readonly name: "reason";
         readonly type: "string";
-        readonly internalType: "string";
     }];
-}, {
-    readonly type: "error";
     readonly name: "MCV2_Bond__InvalidStepParams";
-    readonly inputs: readonly [{
-        readonly name: "reason";
-        readonly type: "string";
-        readonly internalType: "string";
-    }];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__InvalidTokenAmount";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
-    readonly name: "MCV2_Bond__InvalidTokenCreationParams";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "string";
         readonly name: "reason";
         readonly type: "string";
-        readonly internalType: "string";
     }];
-}, {
+    readonly name: "MCV2_Bond__InvalidTokenCreationParams";
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__PermissionDenied";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__SlippageLimitExceeded";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "MCV2_Bond__SqrtPriceX96CalculationInvalidInput";
+    readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__TokenNotFound";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__TokenSymbolAlreadyExists";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Royalty__InvalidParams";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Royalty__NothingToClaim";
-    readonly inputs: readonly [];
-}, {
     readonly type: "error";
-    readonly name: "OwnableInvalidOwner";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "address";
         readonly name: "owner";
         readonly type: "address";
-        readonly internalType: "address";
     }];
-}, {
+    readonly name: "OwnableInvalidOwner";
     readonly type: "error";
-    readonly name: "OwnableUnauthorizedAccount";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "address";
         readonly name: "account";
         readonly type: "address";
-        readonly internalType: "address";
     }];
-}, {
+    readonly name: "OwnableUnauthorizedAccount";
     readonly type: "error";
-    readonly name: "SafeCastOverflowedUintDowncast";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "uint8";
         readonly name: "bits";
         readonly type: "uint8";
-        readonly internalType: "uint8";
     }, {
+        readonly internalType: "uint256";
         readonly name: "value";
         readonly type: "uint256";
-        readonly internalType: "uint256";
     }];
-}, {
+    readonly name: "SafeCastOverflowedUintDowncast";
     readonly type: "error";
-    readonly name: "SafeERC20FailedOperation";
+}, {
     readonly inputs: readonly [{
+        readonly internalType: "address";
         readonly name: "token";
         readonly type: "address";
-        readonly internalType: "address";
     }];
+    readonly name: "SafeERC20FailedOperation";
+    readonly type: "error";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "creator";
+        readonly type: "address";
+    }];
+    readonly name: "BondCreatorUpdated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "user";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "address";
+        readonly name: "receiver";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "amountBurned";
+        readonly type: "uint256";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "refundAmount";
+        readonly type: "uint256";
+    }];
+    readonly name: "Burn";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "amount";
+        readonly type: "uint256";
+    }];
+    readonly name: "CreationFeeUpdated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "user";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "address";
+        readonly name: "receiver";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "amountMinted";
+        readonly type: "uint256";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "reserveAmount";
+        readonly type: "uint256";
+    }];
+    readonly name: "Mint";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "string";
+        readonly name: "name";
+        readonly type: "string";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "string";
+        readonly name: "symbol";
+        readonly type: "string";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "string";
+        readonly name: "uri";
+        readonly type: "string";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }];
+    readonly name: "MultiTokenCreated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "previousOwner";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "newOwner";
+        readonly type: "address";
+    }];
+    readonly name: "OwnershipTransferred";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: false;
+        readonly internalType: "address";
+        readonly name: "protocolBeneficiary";
+        readonly type: "address";
+    }];
+    readonly name: "ProtocolBeneficiaryUpdated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "user";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "amount";
+        readonly type: "uint256";
+    }];
+    readonly name: "RoyaltyClaimed";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "ratio";
+        readonly type: "uint256";
+    }];
+    readonly name: "RoyaltyRangeUpdated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "string";
+        readonly name: "name";
+        readonly type: "string";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "string";
+        readonly name: "symbol";
+        readonly type: "string";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "bytes32";
+        readonly name: "agenthash";
+        readonly type: "bytes32";
+    }];
+    readonly name: "TokenCreated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "pool";
+        readonly type: "address";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "tokenAmount";
+        readonly type: "uint256";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "reserveTokenAmount";
+        readonly type: "uint256";
+    }];
+    readonly name: "TokenGraduated";
+    readonly type: "event";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "BURN_ADDRESS";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "tokensToBurn";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "minRefund";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "address";
+        readonly name: "receiver";
+        readonly type: "address";
+    }];
+    readonly name: "burn";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }];
+    readonly name: "burnRoyalties";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "tokenBalance";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "reserveTokenBalance";
+        readonly type: "uint256";
+    }];
+    readonly name: "calculateSqrtPriceX96";
+    readonly outputs: readonly [{
+        readonly internalType: "uint160";
+        readonly name: "sqrtPriceX96";
+        readonly type: "uint160";
+    }];
+    readonly stateMutability: "pure";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }];
+    readonly name: "claimRoyalties";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "string";
+            readonly name: "name";
+            readonly type: "string";
+        }, {
+            readonly internalType: "string";
+            readonly name: "symbol";
+            readonly type: "string";
+        }, {
+            readonly internalType: "string";
+            readonly name: "uri";
+            readonly type: "string";
+        }];
+        readonly internalType: "struct MCV2_Bond.MultiTokenParams";
+        readonly name: "tp";
+        readonly type: "tuple";
+    }, {
+        readonly components: readonly [{
+            readonly internalType: "uint16";
+            readonly name: "mintRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly internalType: "uint16";
+            readonly name: "burnRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly internalType: "address";
+            readonly name: "reserveToken";
+            readonly type: "address";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "maxSupply";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "uint128[]";
+            readonly name: "stepRanges";
+            readonly type: "uint128[]";
+        }, {
+            readonly internalType: "uint128[]";
+            readonly name: "stepPrices";
+            readonly type: "uint128[]";
+        }];
+        readonly internalType: "struct MCV2_Bond.BondParams";
+        readonly name: "bp";
+        readonly type: "tuple";
+    }];
+    readonly name: "createMultiToken";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "payable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "string";
+            readonly name: "name";
+            readonly type: "string";
+        }, {
+            readonly internalType: "string";
+            readonly name: "symbol";
+            readonly type: "string";
+        }, {
+            readonly internalType: "bytes32";
+            readonly name: "agentHash";
+            readonly type: "bytes32";
+        }];
+        readonly internalType: "struct MCV2_Bond.TokenParams";
+        readonly name: "tp";
+        readonly type: "tuple";
+    }, {
+        readonly components: readonly [{
+            readonly internalType: "uint16";
+            readonly name: "mintRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly internalType: "uint16";
+            readonly name: "burnRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly internalType: "address";
+            readonly name: "reserveToken";
+            readonly type: "address";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "maxSupply";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "uint128[]";
+            readonly name: "stepRanges";
+            readonly type: "uint128[]";
+        }, {
+            readonly internalType: "uint128[]";
+            readonly name: "stepPrices";
+            readonly type: "uint128[]";
+        }];
+        readonly internalType: "struct MCV2_Bond.BondParams";
+        readonly name: "bp";
+        readonly type: "tuple";
+    }];
+    readonly name: "createToken";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "payable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "creationFee";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }];
+    readonly name: "exists";
+    readonly outputs: readonly [{
+        readonly internalType: "bool";
+        readonly name: "";
+        readonly type: "bool";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }];
+    readonly name: "getDetail";
+    readonly outputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "uint16";
+            readonly name: "mintRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly internalType: "uint16";
+            readonly name: "burnRoyalty";
+            readonly type: "uint16";
+        }, {
+            readonly components: readonly [{
+                readonly internalType: "address";
+                readonly name: "creator";
+                readonly type: "address";
+            }, {
+                readonly internalType: "address";
+                readonly name: "token";
+                readonly type: "address";
+            }, {
+                readonly internalType: "uint8";
+                readonly name: "decimals";
+                readonly type: "uint8";
+            }, {
+                readonly internalType: "string";
+                readonly name: "symbol";
+                readonly type: "string";
+            }, {
+                readonly internalType: "string";
+                readonly name: "name";
+                readonly type: "string";
+            }, {
+                readonly internalType: "uint40";
+                readonly name: "createdAt";
+                readonly type: "uint40";
+            }, {
+                readonly internalType: "uint128";
+                readonly name: "currentSupply";
+                readonly type: "uint128";
+            }, {
+                readonly internalType: "uint128";
+                readonly name: "maxSupply";
+                readonly type: "uint128";
+            }, {
+                readonly internalType: "uint128";
+                readonly name: "priceForNextMint";
+                readonly type: "uint128";
+            }, {
+                readonly internalType: "address";
+                readonly name: "reserveToken";
+                readonly type: "address";
+            }, {
+                readonly internalType: "uint8";
+                readonly name: "reserveDecimals";
+                readonly type: "uint8";
+            }, {
+                readonly internalType: "string";
+                readonly name: "reserveSymbol";
+                readonly type: "string";
+            }, {
+                readonly internalType: "string";
+                readonly name: "reserveName";
+                readonly type: "string";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "reserveBalance";
+                readonly type: "uint256";
+            }];
+            readonly internalType: "struct MCV2_Bond.BondInfo";
+            readonly name: "info";
+            readonly type: "tuple";
+        }, {
+            readonly components: readonly [{
+                readonly internalType: "uint128";
+                readonly name: "rangeTo";
+                readonly type: "uint128";
+            }, {
+                readonly internalType: "uint128";
+                readonly name: "price";
+                readonly type: "uint128";
+            }];
+            readonly internalType: "struct MCV2_Bond.BondStep[]";
+            readonly name: "steps";
+            readonly type: "tuple[]";
+        }];
+        readonly internalType: "struct MCV2_Bond.BondDetail";
+        readonly name: "detail";
+        readonly type: "tuple";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "start";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "stop";
+        readonly type: "uint256";
+    }];
+    readonly name: "getList";
+    readonly outputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "address";
+            readonly name: "creator";
+            readonly type: "address";
+        }, {
+            readonly internalType: "address";
+            readonly name: "token";
+            readonly type: "address";
+        }, {
+            readonly internalType: "uint8";
+            readonly name: "decimals";
+            readonly type: "uint8";
+        }, {
+            readonly internalType: "string";
+            readonly name: "symbol";
+            readonly type: "string";
+        }, {
+            readonly internalType: "string";
+            readonly name: "name";
+            readonly type: "string";
+        }, {
+            readonly internalType: "uint40";
+            readonly name: "createdAt";
+            readonly type: "uint40";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "currentSupply";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "maxSupply";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "priceForNextMint";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "address";
+            readonly name: "reserveToken";
+            readonly type: "address";
+        }, {
+            readonly internalType: "uint8";
+            readonly name: "reserveDecimals";
+            readonly type: "uint8";
+        }, {
+            readonly internalType: "string";
+            readonly name: "reserveSymbol";
+            readonly type: "string";
+        }, {
+            readonly internalType: "string";
+            readonly name: "reserveName";
+            readonly type: "string";
+        }, {
+            readonly internalType: "uint256";
+            readonly name: "reserveBalance";
+            readonly type: "uint256";
+        }];
+        readonly internalType: "struct MCV2_Bond.BondInfo[]";
+        readonly name: "info";
+        readonly type: "tuple[]";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "tokensToBurn";
+        readonly type: "uint256";
+    }];
+    readonly name: "getRefundForTokens";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "refundAmount";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "royalty";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "tokensToMint";
+        readonly type: "uint256";
+    }];
+    readonly name: "getReserveForToken";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "reserveAmount";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "royalty";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "wallet";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }];
+    readonly name: "getRoyaltyInfo";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }];
+    readonly name: "getSteps";
+    readonly outputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "uint128";
+            readonly name: "rangeTo";
+            readonly type: "uint128";
+        }, {
+            readonly internalType: "uint128";
+            readonly name: "price";
+            readonly type: "uint128";
+        }];
+        readonly internalType: "struct MCV2_Bond.BondStep[]";
+        readonly name: "";
+        readonly type: "tuple[]";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "creator";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "start";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "stop";
+        readonly type: "uint256";
+    }];
+    readonly name: "getTokensByCreator";
+    readonly outputs: readonly [{
+        readonly internalType: "address[]";
+        readonly name: "addresses";
+        readonly type: "address[]";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "start";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "stop";
+        readonly type: "uint256";
+    }];
+    readonly name: "getTokensByReserveToken";
+    readonly outputs: readonly [{
+        readonly internalType: "address[]";
+        readonly name: "addresses";
+        readonly type: "address[]";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "maxRoyaltyRange";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }];
+    readonly name: "maxSupply";
+    readonly outputs: readonly [{
+        readonly internalType: "uint128";
+        readonly name: "";
+        readonly type: "uint128";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "tokensToMint";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "maxReserveAmount";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "address";
+        readonly name: "receiver";
+        readonly type: "address";
+    }];
+    readonly name: "mint";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "owner";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "positionManager";
+    readonly outputs: readonly [{
+        readonly internalType: "contract INonfungiblePositionManager";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }];
+    readonly name: "priceForNextMint";
+    readonly outputs: readonly [{
+        readonly internalType: "uint128";
+        readonly name: "";
+        readonly type: "uint128";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "protocolBeneficiary";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "renounceOwnership";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly name: "tokenBond";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "creator";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint16";
+        readonly name: "mintRoyalty";
+        readonly type: "uint16";
+    }, {
+        readonly internalType: "uint16";
+        readonly name: "burnRoyalty";
+        readonly type: "uint16";
+    }, {
+        readonly internalType: "uint40";
+        readonly name: "createdAt";
+        readonly type: "uint40";
+    }, {
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "reserveBalance";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "tokenCount";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly name: "tokens";
+    readonly outputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "newOwner";
+        readonly type: "address";
+    }];
+    readonly name: "transferOwnership";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "uniswapV3Factory";
+    readonly outputs: readonly [{
+        readonly internalType: "contract IUniswapV3Factory";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "creator";
+        readonly type: "address";
+    }];
+    readonly name: "updateBondCreator";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "amount";
+        readonly type: "uint256";
+    }];
+    readonly name: "updateCreationFee";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "uint256";
+            readonly name: "maxSupply";
+            readonly type: "uint256";
+        }, {
+            readonly internalType: "uint256";
+            readonly name: "graduateMcap";
+            readonly type: "uint256";
+        }, {
+            readonly internalType: "int24";
+            readonly name: "poolTickSpacing";
+            readonly type: "int24";
+        }, {
+            readonly internalType: "uint24";
+            readonly name: "poolFee";
+            readonly type: "uint24";
+        }];
+        readonly internalType: "struct MCV2_Bond.GraduationSettings";
+        readonly name: "newSettings_";
+        readonly type: "tuple";
+    }];
+    readonly name: "updateGraduationSettings";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "ratio";
+        readonly type: "uint256";
+    }];
+    readonly name: "updateMaxRoyaltyRange";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "protocolBeneficiary_";
+        readonly type: "address";
+    }];
+    readonly name: "updateProtocolBeneficiary";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "newManager";
+        readonly type: "address";
+    }];
+    readonly name: "updateRewardManager";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly name: "userTokenRoyaltyBalance";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }, {
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly name: "userTokenRoyaltyClaimed";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "version";
+    readonly outputs: readonly [{
+        readonly internalType: "string";
+        readonly name: "";
+        readonly type: "string";
+    }];
+    readonly stateMutability: "pure";
+    readonly type: "function";
 }];
 
 declare const ERC1155_ABI: readonly [{
@@ -10915,21 +11044,25 @@ declare class Client {
             [x: `function[${string}]`]: undefined;
             [x: `address[${string}]`]: undefined;
             [x: `uint256[${string}]`]: undefined;
+            [x: `uint8[${string}]`]: undefined;
+            [x: `bytes32[${string}]`]: undefined;
+            [x: `uint160[${string}]`]: undefined;
             [x: `uint16[${string}]`]: undefined;
             [x: `uint128[${string}]`]: undefined;
-            [x: `bytes32[${string}]`]: undefined;
             [x: `bool[${string}]`]: undefined;
-            [x: `uint8[${string}]`]: undefined;
             [x: `uint40[${string}]`]: undefined;
+            [x: `int24[${string}]`]: undefined;
+            [x: `uint24[${string}]`]: undefined;
             [x: `bytes[${string}]`]: undefined;
             [x: `bytes4[${string}]`]: undefined;
             [x: `uint176[${string}]`]: undefined;
             [x: `bytes1[${string}]`]: undefined;
             [x: `bytes10[${string}]`]: undefined;
+            [x: `bytes8[${string}]`]: undefined;
+            [x: `bytes2[${string}]`]: undefined;
+            [x: `bytes6[${string}]`]: undefined;
             [x: `bytes5[${string}]`]: undefined;
             [x: `bytes3[${string}]`]: undefined;
-            [x: `bytes6[${string}]`]: undefined;
-            [x: `bytes2[${string}]`]: undefined;
             [x: `bytes14[${string}]`]: undefined;
             [x: `bytes24[${string}]`]: undefined;
             [x: `bytes7[${string}]`]: undefined;
@@ -10945,7 +11078,6 @@ declare class Client {
             [x: `bytes31[${string}]`]: undefined;
             [x: `bytes19[${string}]`]: undefined;
             [x: `bytes16[${string}]`]: undefined;
-            [x: `bytes8[${string}]`]: undefined;
             [x: `bytes22[${string}]`]: undefined;
             [x: `bytes13[${string}]`]: undefined;
             [x: `bytes17[${string}]`]: undefined;
@@ -10956,8 +11088,8 @@ declare class Client {
             [x: `bytes29[${string}]`]: undefined;
             [x: `int[${string}]`]: undefined;
             [x: `int56[${string}]`]: undefined;
-            [x: `int72[${string}]`]: undefined;
-            [x: `int24[${string}]`]: undefined;
+            [x: `int8[${string}]`]: undefined;
+            [x: `int80[${string}]`]: undefined;
             [x: `int32[${string}]`]: undefined;
             [x: `int48[${string}]`]: undefined;
             [x: `int168[${string}]`]: undefined;
@@ -10967,10 +11099,9 @@ declare class Client {
             [x: `int248[${string}]`]: undefined;
             [x: `int16[${string}]`]: undefined;
             [x: `int40[${string}]`]: undefined;
-            [x: `int8[${string}]`]: undefined;
             [x: `int88[${string}]`]: undefined;
             [x: `int64[${string}]`]: undefined;
-            [x: `int80[${string}]`]: undefined;
+            [x: `int72[${string}]`]: undefined;
             [x: `int104[${string}]`]: undefined;
             [x: `int120[${string}]`]: undefined;
             [x: `int128[${string}]`]: undefined;
@@ -10989,8 +11120,7 @@ declare class Client {
             [x: `int256[${string}]`]: undefined;
             [x: `uint[${string}]`]: undefined;
             [x: `uint56[${string}]`]: undefined;
-            [x: `uint72[${string}]`]: undefined;
-            [x: `uint24[${string}]`]: undefined;
+            [x: `uint80[${string}]`]: undefined;
             [x: `uint32[${string}]`]: undefined;
             [x: `uint48[${string}]`]: undefined;
             [x: `uint168[${string}]`]: undefined;
@@ -11000,13 +11130,12 @@ declare class Client {
             [x: `uint248[${string}]`]: undefined;
             [x: `uint88[${string}]`]: undefined;
             [x: `uint64[${string}]`]: undefined;
-            [x: `uint80[${string}]`]: undefined;
+            [x: `uint72[${string}]`]: undefined;
             [x: `uint104[${string}]`]: undefined;
             [x: `uint120[${string}]`]: undefined;
             [x: `uint136[${string}]`]: undefined;
             [x: `uint144[${string}]`]: undefined;
             [x: `uint152[${string}]`]: undefined;
-            [x: `uint160[${string}]`]: undefined;
             [x: `uint184[${string}]`]: undefined;
             [x: `uint192[${string}]`]: undefined;
             [x: `uint200[${string}]`]: undefined;
@@ -11017,21 +11146,25 @@ declare class Client {
             string?: undefined;
             address?: undefined;
             uint256?: undefined;
+            uint8?: undefined;
+            bytes32?: undefined;
+            uint160?: undefined;
             uint16?: undefined;
             uint128?: undefined;
-            bytes32?: undefined;
             bool?: undefined;
-            uint8?: undefined;
             uint40?: undefined;
+            int24?: undefined;
+            uint24?: undefined;
             bytes?: undefined;
             bytes4?: undefined;
             uint176?: undefined;
             bytes1?: undefined;
             bytes10?: undefined;
+            bytes8?: undefined;
+            bytes2?: undefined;
+            bytes6?: undefined;
             bytes5?: undefined;
             bytes3?: undefined;
-            bytes6?: undefined;
-            bytes2?: undefined;
             bytes14?: undefined;
             bytes24?: undefined;
             bytes7?: undefined;
@@ -11047,7 +11180,6 @@ declare class Client {
             bytes31?: undefined;
             bytes19?: undefined;
             bytes16?: undefined;
-            bytes8?: undefined;
             bytes22?: undefined;
             bytes13?: undefined;
             bytes17?: undefined;
@@ -11057,8 +11189,8 @@ declare class Client {
             bytes28?: undefined;
             bytes29?: undefined;
             int56?: undefined;
-            int72?: undefined;
-            int24?: undefined;
+            int8?: undefined;
+            int80?: undefined;
             int32?: undefined;
             int48?: undefined;
             int168?: undefined;
@@ -11068,10 +11200,9 @@ declare class Client {
             int248?: undefined;
             int16?: undefined;
             int40?: undefined;
-            int8?: undefined;
             int88?: undefined;
             int64?: undefined;
-            int80?: undefined;
+            int72?: undefined;
             int104?: undefined;
             int120?: undefined;
             int128?: undefined;
@@ -11089,8 +11220,7 @@ declare class Client {
             int232?: undefined;
             int256?: undefined;
             uint56?: undefined;
-            uint72?: undefined;
-            uint24?: undefined;
+            uint80?: undefined;
             uint32?: undefined;
             uint48?: undefined;
             uint168?: undefined;
@@ -11100,13 +11230,12 @@ declare class Client {
             uint248?: undefined;
             uint88?: undefined;
             uint64?: undefined;
-            uint80?: undefined;
+            uint72?: undefined;
             uint104?: undefined;
             uint120?: undefined;
             uint136?: undefined;
             uint144?: undefined;
             uint152?: undefined;
-            uint160?: undefined;
             uint184?: undefined;
             uint192?: undefined;
             uint200?: undefined;
