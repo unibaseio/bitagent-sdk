@@ -31,8 +31,7 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     reportToBugsnag: true,
   },
   MCV2_Bond__CreationFeeTransactionFailed: {
-    message:
-      'The transaction for the creation fee has failed. Ensure you have enough funds and the fee is correctly set.',
+    message: 'The transaction for the creation fee has failed. Ensure you have enough funds and the fee is correctly set.',
     reportToBugsnag: true,
   },
   MCV2_Bond__ExceedMaxSupply: {
@@ -123,6 +122,14 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     message: 'An operation with ERC20 tokens failed. Ensure the contract and token addresses are correct.',
     reportToBugsnag: true,
   },
+  MCV2_Bond__InvalidGraduateReserveAmount: {
+    message: 'InvalidGraduateReserveAmount',
+    reportToBugsnag: undefined
+  },
+  MCV2_Bond__SqrtPriceX96CalculationInvalidInput: {
+    message: 'SqrtPriceX96CalculationInvalidInput',
+    reportToBugsnag: undefined
+  }
 };
 
 // Follow a similar pattern for ERC20_ERROR_MESSAGES, ERC1155_ERROR_MESSAGES, LOCKER_ERROR_MESSAGES, MERKLE_ERROR_MESSAGES, ZAP_ERROR_MESSAGES, and V1_WRAPPER_ERROR_MESSAGES.
