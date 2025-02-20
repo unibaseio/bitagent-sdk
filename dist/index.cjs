@@ -174,7 +174,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "0.7.4";
+var version = "0.8.0";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -5142,6 +5142,155 @@ const v73_SDK_CONTRACT_ADDRESSES = {
     [chains.ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
 };
+const v8_SDK_CONTRACT_ADDRESSES = {
+  ERC20: {
+    [chains.mainnet.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.optimism.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.optimismSepolia.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.arbitrum.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.avalanche.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.polygon.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.bsc.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.bscTestnet.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.base.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.baseSepolia.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.sepolia.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.blast.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.blastSepolia.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.avalancheFuji.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.degen.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.cyberTestnet.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.kaia.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.cyber.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD",
+    [chains.ham.id]: "0xC2bA9bc9e14521cF59FAed0a8a44975b58656ddD"
+  },
+  ERC1155: {
+    [chains.mainnet.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.optimism.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.optimismSepolia.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.arbitrum.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.avalanche.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.polygon.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.bsc.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.bscTestnet.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.base.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.baseSepolia.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.sepolia.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.blast.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.blastSepolia.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.avalancheFuji.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.degen.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.cyberTestnet.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.kaia.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.cyber.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D",
+    [chains.ham.id]: "0xFEE3B777143FF2ae91709Aee29935Afd9c5a561D"
+  },
+  BOND: {
+    [chains.mainnet.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.optimism.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.optimismSepolia.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.arbitrum.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.avalanche.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.polygon.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.bsc.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.bscTestnet.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.base.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.baseSepolia.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.sepolia.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.blast.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.blastSepolia.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.avalancheFuji.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.degen.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.cyberTestnet.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.kaia.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.cyber.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd",
+    [chains.ham.id]: "0xFDbF775ef0D0e59AD86eb4d0D96Ccf25e12748Dd"
+  },
+  ZAP: {
+    [chains.mainnet.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.optimism.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.optimismSepolia.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.arbitrum.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.avalanche.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.polygon.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.bsc.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.bscTestnet.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.base.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.baseSepolia.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.sepolia.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.blast.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.blastSepolia.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.avalancheFuji.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.degen.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.cyberTestnet.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.kaia.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.cyber.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199",
+    [chains.ham.id]: "0x434Affe5cd2d7dfB58dF190bB4CBEADCf9D26199"
+  },
+  LOCKER: {
+    [chains.mainnet.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.optimism.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.optimismSepolia.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.arbitrum.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.avalanche.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.polygon.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.bsc.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.bscTestnet.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.base.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.baseSepolia.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.sepolia.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.blast.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.blastSepolia.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.avalancheFuji.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.degen.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.cyberTestnet.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.kaia.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.cyber.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a",
+    [chains.ham.id]: "0xb52eB13eA5EA79eAE8A1d2CE4b163778960f6f6a"
+  },
+  MERKLE: {
+    [chains.mainnet.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.optimism.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.optimismSepolia.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.arbitrum.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.avalanche.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.polygon.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.bsc.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.bscTestnet.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.base.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.baseSepolia.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.sepolia.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.blast.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.blastSepolia.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.avalancheFuji.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.degen.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.cyberTestnet.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.kaia.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.cyber.id]: "0xa486Ece68219095a3412de978F92176C27E59A40",
+    [chains.ham.id]: "0xa486Ece68219095a3412de978F92176C27E59A40"
+  },
+  ONEINCH: {
+    [chains.mainnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.optimism.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.optimismSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.arbitrum.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.avalanche.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.polygon.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.bsc.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.bscTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.base.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.kaia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.sepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.baseSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.blast.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.blastSepolia.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.avalancheFuji.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.degen.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.cyberTestnet.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.cyber.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
+    [chains.ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
+  }
+};
 const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
   "0.1.0": SDK_CONTRACT_ADDRESSES,
   "0.2.0": V2_SDK_CONTRACT_ADDRESSES,
@@ -5154,7 +5303,8 @@ const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
   "0.7.0": v7_SDK_CONTRACT_ADDRESSES,
   "0.7.1": v71_SDK_CONTRACT_ADDRESSES,
   "0.7.2": v72_SDK_CONTRACT_ADDRESSES,
-  "0.7.3": v73_SDK_CONTRACT_ADDRESSES
+  "0.7.3": v73_SDK_CONTRACT_ADDRESSES,
+  "0.8.0": v8_SDK_CONTRACT_ADDRESSES
 };
 function getMintClubContractAddress(contractName, chainId, version = "0.1.0") {
   let contractAddress = VERSION_TO_SDK_CONTRACT_ADDRESSES[version][contractName][chainId];
