@@ -129,6 +129,10 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
   MCV2_Bond__SqrtPriceX96CalculationInvalidInput: {
     message: 'SqrtPriceX96CalculationInvalidInput',
     reportToBugsnag: undefined
+  },
+  MCV2_Bond__SqrtPriceX96CalculationOverflow: {
+    message: 'SqrtPriceX96CalculationOverflow',
+    reportToBugsnag: undefined
   }
 };
 

@@ -157,6 +157,10 @@ declare const BOND_ABI: readonly [{
     readonly type: "error";
 }, {
     readonly inputs: readonly [];
+    readonly name: "MCV2_Bond__SqrtPriceX96CalculationOverflow";
+    readonly type: "error";
+}, {
+    readonly inputs: readonly [];
     readonly name: "MCV2_Bond__TokenNotFound";
     readonly type: "error";
 }, {
@@ -11089,7 +11093,6 @@ declare class Client {
             [x: `int[${string}]`]: undefined;
             [x: `int56[${string}]`]: undefined;
             [x: `int8[${string}]`]: undefined;
-            [x: `int80[${string}]`]: undefined;
             [x: `int32[${string}]`]: undefined;
             [x: `int48[${string}]`]: undefined;
             [x: `int168[${string}]`]: undefined;
@@ -11102,6 +11105,7 @@ declare class Client {
             [x: `int88[${string}]`]: undefined;
             [x: `int64[${string}]`]: undefined;
             [x: `int72[${string}]`]: undefined;
+            [x: `int80[${string}]`]: undefined;
             [x: `int104[${string}]`]: undefined;
             [x: `int120[${string}]`]: undefined;
             [x: `int128[${string}]`]: undefined;
@@ -11120,7 +11124,6 @@ declare class Client {
             [x: `int256[${string}]`]: undefined;
             [x: `uint[${string}]`]: undefined;
             [x: `uint56[${string}]`]: undefined;
-            [x: `uint80[${string}]`]: undefined;
             [x: `uint32[${string}]`]: undefined;
             [x: `uint48[${string}]`]: undefined;
             [x: `uint168[${string}]`]: undefined;
@@ -11131,6 +11134,7 @@ declare class Client {
             [x: `uint88[${string}]`]: undefined;
             [x: `uint64[${string}]`]: undefined;
             [x: `uint72[${string}]`]: undefined;
+            [x: `uint80[${string}]`]: undefined;
             [x: `uint104[${string}]`]: undefined;
             [x: `uint120[${string}]`]: undefined;
             [x: `uint136[${string}]`]: undefined;
@@ -11190,7 +11194,6 @@ declare class Client {
             bytes29?: undefined;
             int56?: undefined;
             int8?: undefined;
-            int80?: undefined;
             int32?: undefined;
             int48?: undefined;
             int168?: undefined;
@@ -11203,6 +11206,7 @@ declare class Client {
             int88?: undefined;
             int64?: undefined;
             int72?: undefined;
+            int80?: undefined;
             int104?: undefined;
             int120?: undefined;
             int128?: undefined;
@@ -11220,7 +11224,6 @@ declare class Client {
             int232?: undefined;
             int256?: undefined;
             uint56?: undefined;
-            uint80?: undefined;
             uint32?: undefined;
             uint48?: undefined;
             uint168?: undefined;
@@ -11231,6 +11234,7 @@ declare class Client {
             uint88?: undefined;
             uint64?: undefined;
             uint72?: undefined;
+            uint80?: undefined;
             uint104?: undefined;
             uint120?: undefined;
             uint136?: undefined;
