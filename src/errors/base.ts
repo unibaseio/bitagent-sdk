@@ -16,14 +16,14 @@ export type BaseErrorParameters = {
     }
 );
 
-export type BaseErrorType = BaseError & { name: 'MintClubSDKError' };
+export type BaseErrorType = BaseError & { name: 'Error' };
 export class BaseError extends Error {
   details: string;
   docsPath?: string;
   metaMessages?: string[];
   shortMessage: string;
 
-  override name = 'MintClubSDKError';
+  override name = 'Error';
   version = getVersion();
 
   constructor(shortMessage: string, args: BaseErrorParameters = {}) {
@@ -37,7 +37,7 @@ export class BaseError extends Error {
       shortMessage || 'An error occurred.',
       '',
       ...(args.metaMessages ? [...args.metaMessages, ''] : []),
-      ...(docsPath ? [`Docs: ${DOCUMENTATION_URL}/${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ''}`] : []),
+      // ...(docsPath ? [`Docs: ${DOCUMENTATION_URL}/${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ''}`] : []),
       ...(details ? [`Details: ${details}`] : []),
       `Version: ${this.version}`,
     ].join('\n');

@@ -28,8 +28,6 @@ function _interopNamespaceDefault(e) {
 
 var chains__namespace = /*#__PURE__*/_interopNamespaceDefault(chains);
 
-const DOCUMENTATION_URL = "https://sdk.mint.club";
-
 function truncateString(str, length = 100) {
   if (str.length > length) {
     return str.slice(0, length - 3) + "...";
@@ -174,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.2";
+var version = "1.0.3";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -270,7 +268,7 @@ class BaseError extends Error {
   docsPath;
   metaMessages;
   shortMessage;
-  name = "MintClubSDKError";
+  name = "Error";
   version = getVersion();
   constructor(shortMessage, args = {}) {
     super();
@@ -280,7 +278,7 @@ class BaseError extends Error {
       shortMessage || "An error occurred.",
       "",
       ...args.metaMessages ? [...args.metaMessages, ""] : [],
-      ...docsPath ? [`Docs: ${DOCUMENTATION_URL}/${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ""}`] : [],
+      // ...(docsPath ? [`Docs: ${DOCUMENTATION_URL}/${docsPath}${args.docsSlug ? `#${args.docsSlug}` : ''}`] : []),
       ...details ? [`Details: ${details}`] : [],
       `Version: ${this.version}`
     ].join("\n");
