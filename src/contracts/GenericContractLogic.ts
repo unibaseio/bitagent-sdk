@@ -112,8 +112,8 @@ export class GenericContractLogic<
         await this.clientHelper.connect();
         return;
       } else if (!isPrivateKey) {
-        await walletClient.addChain({ chain: this.chain });
-        await walletClient.switchChain({ id: this.chainId });
+        // await walletClient.addChain({ chain: this.chain });
+        // await walletClient.switchChain({ id: this.chainId });
       }
 
       simulationArgs = {

@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.0.3";
+var version = "1.0.4";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -9101,8 +9101,6 @@ class GenericContractLogic {
         await this.clientHelper.connect();
         return;
       } else if (!isPrivateKey) {
-        await walletClient.addChain({ chain: this.chain });
-        await walletClient.switchChain({ id: this.chainId });
       }
       simulationArgs = {
         chain: this.chain,
