@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.1.2";
+var version = "1.1.3";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -10545,7 +10545,7 @@ class Token {
         tradeType: "buy"
       });
       if (!bondApproved) {
-        return this.approveBond({
+        this.approveBond({
           ...params,
           tradeType: "buy",
           amountToSpend: maxReserveAmount
@@ -10572,7 +10572,7 @@ class Token {
         tradeType: "sell"
       });
       if (!bondApproved) {
-        return this.approveBond({
+        this.approveBond({
           ...params,
           tradeType: "sell",
           amountToSpend: amount
