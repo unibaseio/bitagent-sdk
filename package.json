@@ -6,7 +6,7 @@
   ],
   "type": "module",
   "license": "BSD-3-Clause",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -71,6 +71,6 @@
     "lodash": "^4.17.21",
     "merkletreejs": "^0.3.11",
     "pinata-web3": "^0.5.2",
-    "viem": "^2.21.15"
+    "viem": "^2.32.0"
   }
 }
