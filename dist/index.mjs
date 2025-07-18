@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.2.2";
+var version = "1.2.3";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -217,7 +217,7 @@ var dependencies = {
 	lodash: "^4.17.21",
 	merkletreejs: "^0.3.11",
 	"pinata-web3": "^0.5.2",
-	viem: "^2.21.15"
+	viem: "^2.32.0"
 };
 var pkg = {
 	name: name,

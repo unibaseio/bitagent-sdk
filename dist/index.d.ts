@@ -1,11 +1,9 @@
-import * as abitype from 'abitype';
 import { ExtractAbiErrorNames } from 'abitype';
 import * as viem from 'viem';
 import { Chain, HttpTransportConfig, FallbackTransportConfig, PublicClient, WalletClient, Abi, ContractFunctionName, ContractFunctionArgs, TransactionReceipt, ReadContractReturnType } from 'viem';
 export { Abi } from 'viem';
 import * as chains from 'viem/chains';
 import { sepolia, blastSepolia, avalancheFuji, cyberTestnet } from 'viem/chains';
-import * as viem_experimental from 'viem/experimental';
 
 declare const BOND_ABI: readonly [{
     readonly inputs: readonly [{
@@ -3516,7 +3514,7 @@ type RPCList = {
     readonly rpcs: string[];
 };
 declare const RPCS: Array<RPCList>;
-declare function chainRPCFallbacks(chain: Chain, fetchOptions?: HttpTransportConfig['fetchOptions']): viem.HttpTransport[];
+declare function chainRPCFallbacks(chain: Chain, fetchOptions?: HttpTransportConfig['fetchOptions']): viem.HttpTransport<undefined, false>[];
 declare const DEFAULT_RANK_OPTIONS: FallbackTransportConfig;
 
 type ErrorObjectType = {
@@ -3636,17 +3634,20 @@ declare class Client {
         type: string;
         uid: string;
         addChain: (args: viem.AddChainParameters) => Promise<void>;
-        deployContract: <const abi extends abitype.Abi | readonly unknown[], chainOverride extends Chain | undefined>(args: viem.DeployContractParameters<abi, Chain | undefined, viem.Account | undefined, chainOverride>) => Promise<viem.DeployContractReturnType>;
+        deployContract: <const abi extends viem.Abi | readonly unknown[], chainOverride extends Chain | undefined>(args: viem.DeployContractParameters<abi, Chain | undefined, viem.Account | undefined, chainOverride>) => Promise<viem.DeployContractReturnType>;
         getAddresses: () => Promise<viem.GetAddressesReturnType>;
+        getCallsStatus: (parameters: viem.GetCallsStatusParameters) => Promise<viem.GetCallsStatusReturnType>;
+        getCapabilities: <chainId extends number | undefined>(parameters?: viem.GetCapabilitiesParameters<chainId>) => Promise<viem.GetCapabilitiesReturnType<chainId>>;
         getChainId: () => Promise<viem.GetChainIdReturnType>;
         getPermissions: () => Promise<viem.GetPermissionsReturnType>;
-        prepareTransactionRequest: <const request extends viem.PrepareTransactionRequestRequest<Chain | undefined, chainOverride>, chainOverride extends Chain | undefined = undefined, accountOverride extends viem.Account | abitype.Address | undefined = undefined>(args: viem.PrepareTransactionRequestParameters<Chain | undefined, viem.Account | undefined, chainOverride, accountOverride, request>) => Promise<viem.UnionRequiredBy<Extract<viem.UnionOmit<viem.ExtractChainFormatterParameters<viem.DeriveChain<Chain | undefined, chainOverride>, "transactionRequest", viem.TransactionRequest>, "from"> & (viem.DeriveChain<Chain | undefined, chainOverride> extends infer T_14 ? T_14 extends viem.DeriveChain<Chain | undefined, chainOverride> ? T_14 extends Chain ? {
+        prepareAuthorization: (parameters: viem.PrepareAuthorizationParameters<viem.Account | undefined>) => Promise<viem.PrepareAuthorizationReturnType>;
+        prepareTransactionRequest: <const request extends viem.PrepareTransactionRequestRequest<Chain | undefined, chainOverride>, chainOverride extends Chain | undefined = undefined, accountOverride extends viem.Account | viem.Address | undefined = undefined>(args: viem.PrepareTransactionRequestParameters<Chain | undefined, viem.Account | undefined, chainOverride, accountOverride, request>) => Promise<viem.UnionRequiredBy<Extract<viem.UnionOmit<viem.ExtractChainFormatterParameters<viem.DeriveChain<Chain | undefined, chainOverride>, "transactionRequest", viem.TransactionRequest>, "from"> & (viem.DeriveChain<Chain | undefined, chainOverride> extends infer T_14 ? T_14 extends viem.DeriveChain<Chain | undefined, chainOverride> ? T_14 extends Chain ? {
             chain: T_14;
         } : {
             chain?: undefined;
         } : never : never) & (viem.DeriveAccount<viem.Account | undefined, accountOverride> extends infer T_15 ? T_15 extends viem.DeriveAccount<viem.Account | undefined, accountOverride> ? T_15 extends viem.Account ? {
             account: T_15;
-            from: abitype.Address;
+            from: viem.Address;
         } : {
             account?: undefined;
             from?: undefined;
@@ -3711,7 +3712,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3721,7 +3722,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3792,7 +3793,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3802,7 +3803,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3873,7 +3874,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3883,7 +3884,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3954,7 +3955,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -3964,7 +3965,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4035,7 +4036,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4045,7 +4046,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4116,7 +4117,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4126,7 +4127,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4197,7 +4198,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4207,7 +4208,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4278,7 +4279,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4288,7 +4289,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4359,7 +4360,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4369,7 +4370,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4440,7 +4441,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4450,7 +4451,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4521,7 +4522,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4531,7 +4532,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4602,7 +4603,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4612,7 +4613,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4683,7 +4684,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4693,7 +4694,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4764,7 +4765,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4774,7 +4775,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4845,7 +4846,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4855,7 +4856,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4926,7 +4927,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -4936,7 +4937,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5007,7 +5008,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5017,7 +5018,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5088,7 +5089,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5098,7 +5099,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5169,7 +5170,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5179,7 +5180,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5250,7 +5251,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5260,7 +5261,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5331,7 +5332,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5341,7 +5342,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5412,7 +5413,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5422,7 +5423,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5493,7 +5494,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5503,7 +5504,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5574,7 +5575,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5584,7 +5585,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5655,7 +5656,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5665,7 +5666,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5736,7 +5737,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5746,7 +5747,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5817,7 +5818,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5827,7 +5828,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5898,7 +5899,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5908,7 +5909,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5979,7 +5980,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -5989,7 +5990,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6060,7 +6061,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6070,7 +6071,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6141,7 +6142,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6151,7 +6152,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6222,7 +6223,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6232,7 +6233,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6303,7 +6304,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6313,7 +6314,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6384,7 +6385,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6394,7 +6395,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6465,7 +6466,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6475,7 +6476,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6546,7 +6547,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6556,7 +6557,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6627,7 +6628,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6637,7 +6638,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6708,7 +6709,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6718,7 +6719,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6789,7 +6790,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6799,7 +6800,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6870,7 +6871,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6880,7 +6881,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6898,7 +6899,7 @@ declare class Client {
             chain?: undefined;
         } : never : never) & (viem.DeriveAccount<viem.Account | undefined, accountOverride> extends infer T_2 ? T_2 extends viem.DeriveAccount<viem.Account | undefined, accountOverride> ? T_2 extends viem.Account ? {
             account: T_2;
-            from: abitype.Address;
+            from: viem.Address;
         } : {
             account?: undefined;
             from?: undefined;
@@ -6963,7 +6964,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -6973,7 +6974,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7044,7 +7045,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7054,7 +7055,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7125,7 +7126,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7135,7 +7136,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7206,7 +7207,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7216,7 +7217,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7287,7 +7288,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7297,7 +7298,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7368,7 +7369,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7378,7 +7379,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7449,7 +7450,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7459,7 +7460,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7530,7 +7531,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7540,7 +7541,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7611,7 +7612,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7621,7 +7622,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7692,7 +7693,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7702,7 +7703,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7773,7 +7774,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7783,7 +7784,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7854,7 +7855,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7864,7 +7865,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7935,7 +7936,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -7945,7 +7946,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8016,7 +8017,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8026,7 +8027,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8097,7 +8098,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8107,7 +8108,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8178,7 +8179,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8188,7 +8189,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8259,7 +8260,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8269,7 +8270,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8340,7 +8341,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8350,7 +8351,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8421,7 +8422,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8431,7 +8432,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8502,7 +8503,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8512,7 +8513,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8583,7 +8584,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8593,7 +8594,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8664,7 +8665,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8674,7 +8675,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8745,7 +8746,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8755,7 +8756,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8826,7 +8827,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8836,7 +8837,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8907,7 +8908,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8917,7 +8918,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8988,7 +8989,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -8998,7 +8999,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9069,7 +9070,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9079,7 +9080,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9150,7 +9151,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9160,7 +9161,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9231,7 +9232,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9241,7 +9242,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9312,7 +9313,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9322,7 +9323,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9393,7 +9394,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9403,7 +9404,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9474,7 +9475,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9484,7 +9485,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9555,7 +9556,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9565,7 +9566,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9636,7 +9637,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9646,7 +9647,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9717,7 +9718,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9727,7 +9728,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9798,7 +9799,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9808,7 +9809,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9879,7 +9880,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9889,7 +9890,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9960,7 +9961,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -9970,7 +9971,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10041,7 +10042,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10051,7 +10052,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10122,7 +10123,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10132,7 +10133,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10147,8 +10148,16 @@ declare class Client {
         }, (request["parameters"] extends readonly viem.PrepareTransactionRequestParameterType[] ? request["parameters"][number] : "type" | "fees" | "gas" | "nonce" | "blobVersionedHashes" | "chainId") extends infer T_13 ? T_13 extends (request["parameters"] extends readonly viem.PrepareTransactionRequestParameterType[] ? request["parameters"][number] : "type" | "fees" | "gas" | "nonce" | "blobVersionedHashes" | "chainId") ? T_13 extends "fees" ? "gasPrice" | "maxFeePerGas" | "maxPriorityFeePerGas" : T_13 : never : never> & (unknown extends request["kzg"] ? {} : Pick<request, "kzg">))[K]; } : never>;
         requestAddresses: () => Promise<viem.RequestAddressesReturnType>;
         requestPermissions: (args: viem.RequestPermissionsParameters) => Promise<viem.RequestPermissionsReturnType>;
+        sendCalls: <const calls extends readonly unknown[], chainOverride extends Chain | undefined = undefined>(parameters: viem.SendCallsParameters<Chain | undefined, viem.Account | undefined, chainOverride, calls>) => Promise<{
+            capabilities?: {
+                [x: string]: any;
+            } | undefined;
+            id: string;
+        }>;
         sendRawTransaction: (args: viem.SendRawTransactionParameters) => Promise<viem.SendRawTransactionReturnType>;
         sendTransaction: <const request extends viem.SendTransactionRequest<Chain | undefined, chainOverride>, chainOverride extends Chain | undefined = undefined>(args: viem.SendTransactionParameters<Chain | undefined, viem.Account | undefined, chainOverride, request>) => Promise<viem.SendTransactionReturnType>;
+        showCallsStatus: (parameters: viem.ShowCallsStatusParameters) => Promise<viem.ShowCallsStatusReturnType>;
+        signAuthorization: (parameters: viem.SignAuthorizationParameters<viem.Account | undefined>) => Promise<viem.SignAuthorizationReturnType>;
         signMessage: (args: viem.SignMessageParameters<viem.Account | undefined>) => Promise<viem.SignMessageReturnType>;
         signTransaction: <chainOverride extends Chain | undefined, const request extends viem.UnionOmit<viem.ExtractChainFormatterParameters<viem.DeriveChain<Chain | undefined, chainOverride>, "transactionRequest", viem.TransactionRequest>, "from"> = viem.UnionOmit<viem.ExtractChainFormatterParameters<viem.DeriveChain<Chain | undefined, chainOverride>, "transactionRequest", viem.TransactionRequest>, "from">>(args: viem.SignTransactionParameters<Chain | undefined, viem.Account | undefined, chainOverride, request>) => Promise<viem.TransactionSerialized<viem.GetTransactionType<request, (request extends {
             accessList?: undefined | undefined;
@@ -10211,7 +10220,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10221,7 +10230,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10292,7 +10301,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10302,7 +10311,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10373,7 +10382,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10383,7 +10392,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10454,7 +10463,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10464,7 +10473,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10535,7 +10544,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10545,7 +10554,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10616,7 +10625,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10626,7 +10635,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10697,7 +10706,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10707,7 +10716,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10778,7 +10787,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10788,7 +10797,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10859,7 +10868,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10869,7 +10878,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10940,7 +10949,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -10950,7 +10959,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -11021,7 +11030,7 @@ declare class Client {
             sidecars: viem.TransactionSerializableEIP4844["sidecars"];
         }, viem.TransactionSerializableEIP4844>) ? "eip4844" : never) | (request extends ({
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -11031,7 +11040,7 @@ declare class Client {
             sidecars?: undefined | undefined;
         } | {
             accessList?: viem.AccessList | undefined;
-            authorizationList?: viem_experimental.SignedAuthorizationList | undefined;
+            authorizationList?: viem.SignedAuthorizationList | undefined;
             blobs?: undefined | undefined;
             blobVersionedHashes?: undefined | undefined;
             gasPrice?: undefined | undefined;
@@ -11043,7 +11052,7 @@ declare class Client {
             authorizationList: viem.TransactionSerializableEIP7702["authorizationList"];
         } ? "eip7702" : never) | (request["type"] extends string | undefined ? Extract<request["type"], string> : never)> ? T_4 extends "legacy" ? viem.TransactionSerializedLegacy : never : never : never)>>;
         signTypedData: <const typedData extends {
-            [x: string]: readonly abitype.TypedDataParameter[];
+            [x: string]: readonly viem.TypedDataParameter[];
             [x: `string[${string}]`]: undefined;
             [x: `function[${string}]`]: undefined;
             [x: `address[${string}]`]: undefined;
@@ -11074,45 +11083,43 @@ declare class Client {
             [x: `bytes9[${string}]`]: undefined;
             [x: `bytes12[${string}]`]: undefined;
             [x: `bytes21[${string}]`]: undefined;
-            [x: `bytes25[${string}]`]: undefined;
-            [x: `bytes15[${string}]`]: undefined;
-            [x: `bytes20[${string}]`]: undefined;
             [x: `bytes11[${string}]`]: undefined;
-            [x: `bytes30[${string}]`]: undefined;
-            [x: `bytes31[${string}]`]: undefined;
-            [x: `bytes19[${string}]`]: undefined;
-            [x: `bytes16[${string}]`]: undefined;
-            [x: `bytes22[${string}]`]: undefined;
             [x: `bytes13[${string}]`]: undefined;
+            [x: `bytes15[${string}]`]: undefined;
+            [x: `bytes16[${string}]`]: undefined;
             [x: `bytes17[${string}]`]: undefined;
+            [x: `bytes19[${string}]`]: undefined;
+            [x: `bytes20[${string}]`]: undefined;
+            [x: `bytes22[${string}]`]: undefined;
             [x: `bytes23[${string}]`]: undefined;
+            [x: `bytes25[${string}]`]: undefined;
             [x: `bytes26[${string}]`]: undefined;
             [x: `bytes27[${string}]`]: undefined;
             [x: `bytes28[${string}]`]: undefined;
             [x: `bytes29[${string}]`]: undefined;
+            [x: `bytes30[${string}]`]: undefined;
+            [x: `bytes31[${string}]`]: undefined;
             [x: `int[${string}]`]: undefined;
             [x: `int56[${string}]`]: undefined;
             [x: `int8[${string}]`]: undefined;
             [x: `int32[${string}]`]: undefined;
             [x: `int48[${string}]`]: undefined;
-            [x: `int168[${string}]`]: undefined;
-            [x: `int96[${string}]`]: undefined;
-            [x: `int112[${string}]`]: undefined;
-            [x: `int240[${string}]`]: undefined;
-            [x: `int248[${string}]`]: undefined;
             [x: `int16[${string}]`]: undefined;
             [x: `int40[${string}]`]: undefined;
-            [x: `int88[${string}]`]: undefined;
             [x: `int64[${string}]`]: undefined;
             [x: `int72[${string}]`]: undefined;
             [x: `int80[${string}]`]: undefined;
+            [x: `int88[${string}]`]: undefined;
+            [x: `int96[${string}]`]: undefined;
             [x: `int104[${string}]`]: undefined;
+            [x: `int112[${string}]`]: undefined;
             [x: `int120[${string}]`]: undefined;
             [x: `int128[${string}]`]: undefined;
             [x: `int136[${string}]`]: undefined;
             [x: `int144[${string}]`]: undefined;
             [x: `int152[${string}]`]: undefined;
             [x: `int160[${string}]`]: undefined;
+            [x: `int168[${string}]`]: undefined;
             [x: `int176[${string}]`]: undefined;
             [x: `int184[${string}]`]: undefined;
             [x: `int192[${string}]`]: undefined;
@@ -11121,25 +11128,25 @@ declare class Client {
             [x: `int216[${string}]`]: undefined;
             [x: `int224[${string}]`]: undefined;
             [x: `int232[${string}]`]: undefined;
+            [x: `int240[${string}]`]: undefined;
+            [x: `int248[${string}]`]: undefined;
             [x: `int256[${string}]`]: undefined;
             [x: `uint[${string}]`]: undefined;
             [x: `uint56[${string}]`]: undefined;
             [x: `uint32[${string}]`]: undefined;
             [x: `uint48[${string}]`]: undefined;
-            [x: `uint168[${string}]`]: undefined;
-            [x: `uint96[${string}]`]: undefined;
-            [x: `uint112[${string}]`]: undefined;
-            [x: `uint240[${string}]`]: undefined;
-            [x: `uint248[${string}]`]: undefined;
-            [x: `uint88[${string}]`]: undefined;
             [x: `uint64[${string}]`]: undefined;
             [x: `uint72[${string}]`]: undefined;
             [x: `uint80[${string}]`]: undefined;
+            [x: `uint88[${string}]`]: undefined;
+            [x: `uint96[${string}]`]: undefined;
             [x: `uint104[${string}]`]: undefined;
+            [x: `uint112[${string}]`]: undefined;
             [x: `uint120[${string}]`]: undefined;
             [x: `uint136[${string}]`]: undefined;
             [x: `uint144[${string}]`]: undefined;
             [x: `uint152[${string}]`]: undefined;
+            [x: `uint168[${string}]`]: undefined;
             [x: `uint184[${string}]`]: undefined;
             [x: `uint192[${string}]`]: undefined;
             [x: `uint200[${string}]`]: undefined;
@@ -11147,6 +11154,8 @@ declare class Client {
             [x: `uint216[${string}]`]: undefined;
             [x: `uint224[${string}]`]: undefined;
             [x: `uint232[${string}]`]: undefined;
+            [x: `uint240[${string}]`]: undefined;
+            [x: `uint248[${string}]`]: undefined;
             string?: undefined;
             address?: undefined;
             uint256?: undefined;
@@ -11176,44 +11185,42 @@ declare class Client {
             bytes9?: undefined;
             bytes12?: undefined;
             bytes21?: undefined;
-            bytes25?: undefined;
-            bytes15?: undefined;
-            bytes20?: undefined;
             bytes11?: undefined;
-            bytes30?: undefined;
-            bytes31?: undefined;
-            bytes19?: undefined;
-            bytes16?: undefined;
-            bytes22?: undefined;
             bytes13?: undefined;
+            bytes15?: undefined;
+            bytes16?: undefined;
             bytes17?: undefined;
+            bytes19?: undefined;
+            bytes20?: undefined;
+            bytes22?: undefined;
             bytes23?: undefined;
+            bytes25?: undefined;
             bytes26?: undefined;
             bytes27?: undefined;
             bytes28?: undefined;
             bytes29?: undefined;
+            bytes30?: undefined;
+            bytes31?: undefined;
             int56?: undefined;
             int8?: undefined;
             int32?: undefined;
             int48?: undefined;
-            int168?: undefined;
-            int96?: undefined;
-            int112?: undefined;
-            int240?: undefined;
-            int248?: undefined;
             int16?: undefined;
             int40?: undefined;
-            int88?: undefined;
             int64?: undefined;
             int72?: undefined;
             int80?: undefined;
+            int88?: undefined;
+            int96?: undefined;
             int104?: undefined;
+            int112?: undefined;
             int120?: undefined;
             int128?: undefined;
             int136?: undefined;
             int144?: undefined;
             int152?: undefined;
             int160?: undefined;
+            int168?: undefined;
             int176?: undefined;
             int184?: undefined;
             int192?: undefined;
@@ -11222,24 +11229,24 @@ declare class Client {
             int216?: undefined;
             int224?: undefined;
             int232?: undefined;
+            int240?: undefined;
+            int248?: undefined;
             int256?: undefined;
             uint56?: undefined;
             uint32?: undefined;
             uint48?: undefined;
-            uint168?: undefined;
-            uint96?: undefined;
-            uint112?: undefined;
-            uint240?: undefined;
-            uint248?: undefined;
-            uint88?: undefined;
             uint64?: undefined;
             uint72?: undefined;
             uint80?: undefined;
+            uint88?: undefined;
+            uint96?: undefined;
             uint104?: undefined;
+            uint112?: undefined;
             uint120?: undefined;
             uint136?: undefined;
             uint144?: undefined;
             uint152?: undefined;
+            uint168?: undefined;
             uint184?: undefined;
             uint192?: undefined;
             uint200?: undefined;
@@ -11247,12 +11254,15 @@ declare class Client {
             uint216?: undefined;
             uint224?: undefined;
             uint232?: undefined;
+            uint240?: undefined;
+            uint248?: undefined;
         } | {
             [key: string]: unknown;
         }, primaryType extends string>(args: viem.SignTypedDataParameters<typedData, primaryType, viem.Account | undefined>) => Promise<viem.SignTypedDataReturnType>;
         switchChain: (args: viem.SwitchChainParameters) => Promise<void>;
+        waitForCallsStatus: (parameters: viem.WaitForCallsStatusParameters) => Promise<viem.WaitForCallsStatusReturnType>;
         watchAsset: (args: viem.WatchAssetParameters) => Promise<viem.WatchAssetReturnType>;
-        writeContract: <const abi extends abitype.Abi | readonly unknown[], functionName extends viem.ContractFunctionName<abi, "nonpayable" | "payable">, args_1 extends viem.ContractFunctionArgs<abi, "nonpayable" | "payable", functionName>, chainOverride extends Chain | undefined = undefined>(args: viem.WriteContractParameters<abi, functionName, args_1, Chain | undefined, viem.Account | undefined, chainOverride>) => Promise<viem.WriteContractReturnType>;
+        writeContract: <const abi extends viem.Abi | readonly unknown[], functionName extends viem.ContractFunctionName<abi, "nonpayable" | "payable">, args_1 extends viem.ContractFunctionArgs<abi, "nonpayable" | "payable", functionName>, chainOverride extends Chain | undefined = undefined>(args: viem.WriteContractParameters<abi, functionName, args_1, Chain | undefined, viem.Account | undefined, chainOverride>) => Promise<viem.WriteContractReturnType>;
         extend: <const client extends {
             [x: string]: unknown;
             account?: undefined;
